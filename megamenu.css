@@ -1,0 +1,410 @@
+/* ======= MEGA MENU (final refined version) ======= */
+.nav-item.has-mega {
+  position: static;
+}
+
+.mega-menu {
+  position: absolute;
+  top: 45px;
+  left: 0;
+  width: 100%;
+  background-color: #FFF;
+  display: none;
+  justify-content: center;
+  padding: 20px 120px; /* dikurangi biar border kiri-kanan lebih kecil */
+  box-shadow: 0 8px 25px rgba(0, 0, 0, 0.08);
+  z-index: 1;
+  overflow: hidden;
+  transition: opacity 0.3s ease, transform 0.3s ease;
+  opacity: 0;
+  transform: translateY(10px);
+}
+
+/* muncul dengan delay halus */
+.nav-item.has-mega:hover .mega-menu {
+  display: flex;
+  opacity: 1;
+  transform: translateY(0);
+  transition-delay: 0.15s; /* muncul agak telat */
+}
+
+/* Saat mouse keluar */
+.nav-item.has-mega:not(:hover) .mega-menu {
+  opacity: 0;
+  transform: translateY(15px);
+  pointer-events: none;
+  transition-delay: 1s; /* ini yang bikin dia lama hilangnya */
+}
+
+/* sembunyi dengan delay biar gak langsung hilang */
+.nav-item.has-mega .mega-menu {
+  pointer-events: none;
+}
+.nav-item.has-mega:hover .mega-menu {
+  pointer-events: auto;
+}
+
+/* Background teks besar */
+.mega-bg {
+  position: absolute;
+  font-size: 260px; /* diperbesar */
+  font-weight: 800;
+  color: rgba(0, 0, 0, 0.02); /* lebih lembut */
+  top: 52%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  letter-spacing: -8px;
+  pointer-events: none;
+  user-select: none;
+  white-space: nowrap;
+  z-index: 1;
+}
+
+/* Konten utama */
+.mega-content {
+  display: grid;
+  grid-template-columns: 1.2fr 0.8fr 2fr;
+  gap: 60px;
+  align-items: center;
+  position: relative;
+  z-index: 2;
+  width: 100%;
+  max-width: 1500px;
+}
+
+/* Kiri */
+.mega-content .left h2 {
+  font-size: 34px;
+  font-weight: 700;
+  color: #555;
+  margin-bottom: 16px;
+  margin-left: -50px;
+  margin-top: 20px;
+}
+
+.mega-content .left .dot {
+  color: #d00000;
+}
+
+.mega-content .left p {
+  color: #555;
+  font-size: 15px;
+  line-height: 1.8;
+  margin-bottom: 15px;
+  max-width: 380px;
+  margin-left: -50px;
+}
+
+.mega-content .left .explore {
+  color: #d00000;
+  font-weight: 600;
+  text-decoration: none;
+  font-size: 14px;
+  transition: color 0.3s ease;
+  margin-left: -50px;
+}
+
+.mega-content .left .explore:hover {
+  color: #a00000;
+}
+
+/* Tengah */
+.mega-content .middle {
+  display: flex;
+  flex-direction: column;
+  gap: 35px;
+  margin-left: -20px; 
+  margin-top: -55px;
+}
+
+.mega-content .middle a {
+  text-decoration: none;
+  color: #111;
+  font-size: 17px;
+  font-weight: 700;
+  transition: color 0.3s ease;
+}
+
+.mega-content .middle a:hover {
+  color: #d00000;
+}
+
+/* Kanan */
+.mega-content .right {
+  position: relative;
+  width: 100%;
+  height: 100%;
+  overflow: hidden;
+  border-radius: 0;
+  margin-left: 80px;
+}
+
+/* Gambar kanan */
+.mega-content .right img {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  object-fit: 0;      /* biar isi penuh tanpa distorsi */
+  object-position: center; /* fokus tengah */
+  display: block;
+}
+
+/* Background teks besar per menu */
+.mega-bg {
+  position: absolute;
+  top: 18%;
+  left: 29%;
+  transform: translate(-50%, -50%);
+  font-size: 210px; /* gedein */
+  font-weight: 650;
+  color: rgba(0, 0, 0, 0.08); /* transparan lembut */
+  letter-spacing: -8px;
+  z-index: 1;
+  pointer-events: none;
+  user-select: none;
+  white-space: nowrap;
+}
+
+
+.mega-bg-locations {
+  position: absolute;
+  top: 10%;
+  left: 30%;
+  transform: translate(-50%, -50%);
+  font-size: 130px; /* gedein */
+  font-weight: 650;
+  color: rgba(0, 0, 0, 0.08); /* transparan lembut */
+  letter-spacing: -8px;
+  z-index: 1;
+  pointer-events: none;
+  user-select: none;
+  white-space: nowrap;
+}
+
+
+.mega-bg-links {
+  position: absolute;
+  top: 14%;
+  left: 23%;
+  transform: translate(-50%, -50%);
+  font-size: 180px; /* gedein */
+  font-weight: 650;
+  color: rgba(0, 0, 0, 0.08); /* transparan lembut */
+  letter-spacing: -8px;
+  z-index: 1;
+  pointer-events: none;
+  user-select: none;
+  white-space: nowrap;
+}
+
+
+.mega-bg-company {
+  position: absolute;
+  top: 11%;
+  left: 30%;
+  transform: translate(-50%, -50%);
+  font-size: 125px; /* gedein */
+  font-weight: 650;
+  color: rgba(0, 0, 0, 0.08); /* transparan lembut */
+  letter-spacing: -8px;
+  z-index: 1;
+  pointer-events: none;
+  user-select: none;
+  white-space: nowrap;
+}
+
+.mega-bg-investors {
+  position: absolute;
+  top: 7%;
+  left: 31%;
+  transform: translate(-50%, -50%);
+  font-size: 125px; /* gedein */
+  font-weight: 650;
+  color: rgba(0, 0, 0, 0.08); /* transparan lembut */
+  letter-spacing: -8px;
+  z-index: 1;
+  pointer-events: none;
+  user-select: none;
+  white-space: nowrap;
+}
+
+/* Tengah */
+.mega-content .middle-locations {
+  display: flex;
+  flex-direction: column;
+  gap: 35px;
+  margin-left: -20px; 
+  margin-top: -140px;
+}
+
+
+.mega-content .middle-locations a {
+  text-decoration: none;
+  color: #111;
+  font-size: 17px;
+  font-weight: 700;
+  transition: color 0.3s ease;
+}
+
+.mega-content .middle-links {
+  display: flex;
+  flex-direction: column;
+  gap: 35px;
+  margin-left: -20px; 
+  margin-top: 10px;
+}
+
+.mega-content .middle-links a {
+  text-decoration: none;
+  color: #111;
+  font-size: 17px;
+  font-weight: 700;
+  transition: color 0.3s ease;
+}
+
+.mega-content .middle-company {
+  display: flex;
+  flex-direction: column;
+  gap: 35px;
+  margin-left: -20px; 
+  margin-top: -10px;
+}
+
+.mega-content .middle-company a {
+  text-decoration: none;
+  color: #111;
+  font-size: 17px;
+  font-weight: 700;
+  transition: color 0.3s ease;
+}
+
+
+.mega-content .middle-locations a:hover {
+  color: #d00000;
+}
+
+.mega-content .middle-links a:hover {
+  color: #d00000;
+}
+
+.mega-content .middle-company a:hover {
+  color: #d00000;
+}
+
+/* 
+  Ini adalah layout GRID 4 KOLOM khusus untuk menu Investor.
+  (Teks, Tautan 1, Tautan 2, Gambar)
+*/
+.mega-content-investors {
+  display: grid;
+  /* Kiri(1fr), Tautan1(1fr), Tautan2(1fr), Gambar(1.5fr) */
+  grid-template-columns: 1fr 1fr 1fr 1.5fr; 
+  gap: 40px; /* Jarak antar kolom */
+  align-items: center;
+  position: relative;
+  z-index: 2;
+  width: 100%;
+  max-width: 1500px;
+}
+
+/* 
+  Styling untuk kolom tautan (kita pakai class baru) 
+  Ini mirip dengan .middle-Investors kamu tapi bisa dipakai 2x
+*/
+.middle-links-investors {
+  display: flex;
+  flex-direction: column;
+  gap: 15px; /* Jarak antar link */
+  margin-top: -20px; /* Sedikit ke atas */
+  align-self: start; /* Mulai dari atas */
+}
+
+/* 
+  Ini styling untuk JUDUL (h3) yang kamu minta
+*/
+.middle-links-investors h3 {
+  font-size: 19px;
+  font-weight: 700;
+  color: #111;
+  margin-bottom: 1px;
+  padding-bottom: 1px;
+  padding-top: 48px;
+  /* Garis bawah merah seperti di gambar */
+  width: fit-content; /* Garis bawahnya pas di teks */
+}
+
+/* 
+  Styling untuk link di dalam kolom
+*/
+.middle-links-investors a {
+  text-decoration: none;
+  color: #111;
+  font-size: 17px;
+  font-weight: 700;
+  transition: color 0.3s ease;
+}
+
+.middle-links-investors a:hover {
+  color: #d00000;
+}
+
+.mega-content .right img,
+.mega-content-investors .right img {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  object-position: center; 
+  display: block;
+}
+
+/* 
+  Kita juga perlu styling .left dan .right 
+  di dalam .mega-content-investors 
+  (CSS kamu sebelumnya menargetkan .mega-content saja)
+*/
+
+.mega-content-investors .left h2 {
+  font-size: 34px;
+  font-weight: 700;
+  color: #555;
+  margin-bottom: 16px;
+  margin-top: 20px;
+}
+
+.mega-content-investors .left .dot {
+  color: #d00000;
+}
+
+.mega-content-investors .left p {
+  color: #555;
+  font-size: 15px;
+  line-height: 1.8;
+  margin-bottom: 15px;
+  max-width: 380px;
+}
+
+.mega-content-investors .left .explore {
+  color: #d00000;
+  font-weight: 600;
+  text-decoration: none;
+  font-size: 14px;
+  transition: color 0.3s ease;
+}
+
+.mega-content-investors .left .explore:hover {
+  color: #a00000;
+}
+
+.mega-content-investors .right {
+  position: relative;
+  width: 100%;
+  height: 100%;
+  overflow: hidden;
+  border-radius: 0;
+  align-self: stretch; /* Bikin kolom gambar penuh */
+}

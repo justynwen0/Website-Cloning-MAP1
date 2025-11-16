@@ -1,0 +1,1910 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>News-Corporate</title>
+
+    <!-- Megamenu CSS -->
+    <link rel="stylesheet" href="megamenu.css">
+
+    <style>
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body {
+    font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, 'Helvetica Neue', Arial, sans-serif;
+    background-color: #ffffff;
+    min-height: 100vh;
+}
+
+/* Header */
+.header {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    z-index: 9999;
+    height: 70px;
+    background-color: white;
+    overflow: hidden;
+    box-shadow: 0 8px 10px rgba(0, 0, 0, 0.1); /* ini efek timbulnya */
+}
+
+/* White section (logo background) - tajam ke kanan atas */
+.white-section {
+    position: absolute;
+    top: 0;
+    left: 0;
+    bottom: 0;
+    width: 15%;
+    background-color: #FFFFFF;
+    clip-path: polygon(0 0, 75% 0, 100% 100%, 0% 100%);
+    z-index: 3;
+}
+
+/* Red diagonal background - dari kiri bawah ke kanan atas */
+.red-diagonal {
+    position: absolute;
+    top: 0;
+    left: 1%;
+    right: 0;
+    bottom: 0;
+    background-color: #a70000;
+    clip-path: polygon(0 0, 100% 0, 100% 100%, 6% 100%);
+    z-index: 2;
+}
+
+/* Dark section kanan - tajam potong ke kiri bawah */
+.dark-section {
+    position: absolute;
+    right: 0;
+    top: 0;
+    bottom: 0;
+    width: 23%;
+    background-color: #2D2D2D;
+    /* ubah clip-path jadi seperti ini */
+    clip-path: polygon(0% 0, 100% 0, 100% 100%, 18% 100%);
+    z-index: 2;
+}
+
+/* Header content */
+.header-content {
+    position: relative;
+    height: 100%;
+    max-width: 1600px;
+    margin: 0 auto;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 0 30px;
+    z-index: 10;
+}
+
+/* Pastikan header dan nav tidak memotong dropdown */
+.header,
+.header-content,
+.nav {
+  position: sticky;
+  overflow: visible;
+  z-index: 10;
+}
+
+
+/* Logo Container */
+.logo-container {
+    display: flex;
+    align-items: center;
+    padding-right: 40px;
+}
+
+.logo {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+}
+
+.logo-text {
+    font-size: 20px;
+    font-weight: 700;
+    color: #C8102E;
+    line-height: 1;
+    letter-spacing: 2px;
+    font-family: 'Times New Roman', Times, serif;
+}
+
+.logo-subtitle {
+    font-size: 9px;
+    color: #000000;
+    margin-top: 2px;
+    letter-spacing: 0.5px;
+    font-weight: 400;
+}
+
+/* Navigation */
+.nav {
+    display: flex;
+    align-items: center;
+    gap: 45px;
+    flex: 1;
+    justify-content: center;
+    margin-left: -1px;
+    margin-right: -50px;
+}
+
+/* Ubah bagian ini */
+.nav-link {
+    position: relative; /* <— tambahkan baris ini */
+    color: #FFFFFF;
+    text-decoration: none;
+    font-size: 13px;
+    font-weight: 600;
+    letter-spacing: 0.8px;
+    transition: opacity 0.3s ease;
+    white-space: nowrap;
+}
+
+
+/* Tambahkan bagian baru ini */
+.nav-link::after {
+    content: "";
+    position: absolute;
+    left: 0;
+    bottom: -25px; /* jarak antara teks dan garis */
+    width: 0;
+    height: 7px;
+    background-color: #ff0202; /* warna merah khas MAP */
+    transition: width 0s ease;
+}
+
+.nav-link.active::after {
+    content: "";
+    position: absolute;
+    left: 0;
+    bottom: -25px;
+    width: 100%;
+    height: 7px;
+    background-color: #ff020200; /* warna merah */
+}
+
+
+.nav-link:hover::after {
+    width: 100%;
+}
+
+/* Right section */
+.right-section {
+    display: flex;
+    align-items: center;
+    gap: 20px;
+}
+
+/* Stock info */
+.stock-info {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    font-size: 13px;
+    color: #FFFFFF;
+    white-space: nowrap;
+    transform: translateX(90px) translateY(-15px);
+}
+
+.stock-label {
+    font-weight: 600;
+}
+
+.stock-price {
+    font-weight: 700;
+}
+
+.stock-change {
+    color: #FF6B6B;
+    font-weight: 600;
+}
+
+/* Icons */
+.icons {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    transform: translateY(12px) translateX(-4px); /* 🔻 turunkan sedikit ke bawah */
+
+}
+
+.icon {
+    width: 18px;
+    height: 18px;
+    color: #FFFFFF;
+    cursor: pointer;
+    transition: opacity 0.3s ease;
+}
+
+.icon:hover {
+    opacity: 0.7;
+}
+
+.language {
+    color: #FFFFFF;
+    font-size: 13px;
+    font-weight: 600;
+    cursor: pointer;
+    transition: opacity 0.3s ease;
+}
+
+.language:hover {
+    opacity: 0.7;
+}
+
+/* News Section */
+.news-section {
+  position: relative;
+  text-align: center;
+  padding: 60px 0 25px 0;
+  overflow: hidden;
+}
+
+.section-subtitle {
+  color: #C8102E;
+  font-weight: 700;
+  letter-spacing: 3px;    /* agak renggang */
+  font-size: 20px;        /* biar lebih besar */
+  text-align: center;     /* supaya pas di tengah */
+  margin-bottom: 1%;
+  text-transform: uppercase; /* biar huruf kapital semua */
+}
+
+.section-title {
+  font-size: 52px;
+  font-weight: 700;
+  color: #222;
+  margin-bottom: 25px;
+}
+
+.news-tabs {
+  display: flex;
+  justify-content: center;
+  gap: 25px;
+  margin-top: 38px;
+  margin-bottom: 20px;
+}
+
+.tab {
+  font-size: 14px;
+  color: #888;
+  text-decoration: none;
+  font-weight: 600;
+  position: relative;
+  transition: color 0.3s ease;
+}
+
+.tab:hover {
+  color: #C8102E;
+}
+
+.tab.active {
+  color: #C8102E;
+}
+
+.tab.active::after {
+  content: "";
+  position: absolute;
+  bottom: -5px;
+  left: 0;
+  width: 100%;
+  height: 2px;
+  background-color: #C8102E;
+}
+
+/* Tombol select */
+.news-filter {
+  position: absolute;
+  right: 3%;
+  top: 83%;
+  transform: translateY(-50%);
+}
+
+.select-btn {
+  appearance: none;
+  -webkit-appearance: none;
+  -moz-appearance: none;
+  background: transparent;
+  color: #000000;
+  font-weight: 700;
+  font-size: 15px;
+  border: none;
+  padding: 10px 36px 10px 10px;
+  cursor: pointer;
+  outline: none;
+}
+
+/* Hilangkan border bawaan & background biru default */
+.select-btn:focus {
+  outline: none;
+}
+
+/* Panah custom hitam (atau ubah ke merah kalau mau) */
+.news-filter::after {
+  content: "⮟";
+  position: absolute;
+  right: 10px;
+  top: 50%;
+  transform: translateY(-50%);
+  color: #e90808; /* 🔴 ganti ke merah: #E30000 */
+  font-size: 14px;
+  pointer-events: none;
+}
+
+/* Saat di-hover: efek bold + ubah warna panah (opsional) */
+.select-btn:hover {
+  color: #E30000;
+}
+
+/* Teks besar “LATEST” di belakang */
+.background-text {
+  position: absolute;
+  font-size: 280px;
+  font-weight: 800;
+  color: rgba(0,0,0,0.04);
+  top: 52%;
+  left: 50%;
+  transform: translate(-50%, -53%);
+  z-index: -1;
+  letter-spacing: 10px;
+  user-select: none;
+}
+
+/* Brand Gallery Section */
+.news-gallery {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
+  gap: 20px;
+  max-width: 1300px;
+  margin: 10px auto;
+  justify-items: center;
+}
+
+
+.news-item {
+  position: relative;
+  width: 100%;
+  overflow: hidden;
+  border-radius: 4px;
+  cursor: pointer;
+  transition: transform 0.4s ease, box-shadow 0.3s ease;
+}
+
+.news-item img {
+  width: 100%;
+  height: 360px;
+  object-fit: cover;
+  display: block;
+  transition: transform 0.4s ease, filter 0.4s ease;
+}
+
+.news-item:hover img {
+  transform: scale(1.05);
+  filter: brightness(0.85);
+}
+
+/* --- Tanggal pojok kanan atas --- */
+.date-badge {
+  position: absolute;
+  top: 0;
+  right: 0;
+  background-color: #c00;
+  color: #fff;
+  text-align: center;
+  padding: 5px 10px;
+  line-height: 1.1;
+}
+
+.date-badge .month {
+  display: block;
+  font-size: 0.8rem;
+  font-weight: bold;
+  letter-spacing: 1px;
+}
+
+.date-badge .day {
+  display: block;
+  font-size: 1.2rem;
+  font-weight: 700;
+}
+
+/* --- Overlay teks bawah --- */
+.text-overlay {
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  padding: 20px;
+  color: #fff;
+  background: linear-gradient(to top, rgba(0,0,0,0.7), rgba(0,0,0,0));
+  width: 100%;
+  box-sizing: border-box;
+}
+
+.text-overlay .category {
+  font-size: 0.75rem;
+  letter-spacing: 1px;
+  text-transform: uppercase;
+  margin-bottom: 5px;
+  opacity: 0.9;
+}
+
+.text-overlay h3 {
+  font-size: 1rem;
+  line-height: 1.3;
+  font-weight: 600;
+}
+
+/* Hover efek */
+.news-item:hover {
+  transform: translateY(-5px);
+  box-shadow: 0 10px 20px rgba(0, 0, 0, 0.2);
+}
+
+/* ===== LOAD MORE SECTION ===== */
+.load-more-section {
+  text-align: center;
+  margin-top: 30px;
+  margin-bottom: 80px;
+}
+
+.load-more-text {
+  font-family: 'Helvetica Neue', Arial, sans-serif;
+  font-size: 16px;
+  font-weight: bold;
+  letter-spacing: 4px;
+  color: #d10000; /* Warna merah khas MAP */
+  text-transform: uppercase;
+  margin-bottom: 20px;
+  text-decoration: none;
+}
+
+.bottom-line {
+  width: 95%;
+  height: 2px;
+  background-color: #d10000; /* Garis merah di bawah */
+  margin: 115px auto 1px;
+}
+
+/* === FOOTER === */
+.site-footer {
+  background-color: #fff;
+  color: #000;
+  font-family: "Arial", sans-serif;
+  padding: 0px 80px 20px 80px;
+}
+
+/* --- Kontainer utama --- */
+.footer-container {
+  display: grid;
+  grid-template-columns: 3fr 1fr; /* kiri konten, kanan logo */
+  align-items: start; /* biar logo tetap di atas */
+  gap: 30px;
+  margin-top: -50px;
+}
+
+/* --- Grid isi kolom kiri --- */
+.footer-content {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr); /* 4 kolom sejajar */
+  gap: 30px;
+}
+
+/* --- Setiap kolom isi --- */
+.footer-col h4 {
+  font-size: 24px;
+  font-weight: bold;
+  margin-bottom: 10px;
+  display: flex;
+  align-items: center;
+  gap: 6px;
+}
+
+.footer-col ul {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+}
+
+.footer-col ul li {
+  margin-bottom: 8px;
+}
+
+.footer-col ul li a {
+  text-decoration: none;
+  color: #666565;
+  font-size: 14px;
+  transition: color 0.3s ease;
+}
+
+.footer-col ul li a:hover {
+  color: #a20000; /* warna merah khas MAP */
+}
+
+.red-dot {
+  color: #a20000;
+  font-size: 12px;
+}
+
+.invisible-text {
+  color: transparent;
+}
+
+/* --- Logo bagian kanan --- */
+.footer-logo {
+  display: flex;
+  justify-content: flex-end;
+  align-items: flex-start;
+  padding-top: 0px;
+  margin-top: -10px;
+  margin-right: -50px;
+}
+
+.footer-logo img {
+  width: 150px;
+  height: auto;
+}
+
+/* === MAPCLUB SECTION === */
+.mapclub-section {
+  background-color: #fff;
+  padding: 20px 20px;
+}
+
+.divider {
+  border: none;
+  border-top: 1px solid #ddd;
+  margin-bottom: 40px;
+  
+}
+
+/* Container utama */
+.mapclub-container {
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-start; /* ubah dari center ke flex-start */
+  flex-wrap: wrap;
+}
+
+/* --- Kiri --- */
+.mapclub-left h2 {
+  font-size: 35px;
+  font-weight: 700;
+  margin: 0 0 20px 0;
+  flex: 1;
+}
+
+.mapclub-btn {
+  background-color: #f72323;
+  color: #fff;
+  border: none;
+  padding: 20px 26px;
+  font-size: 15px;
+  font-weight: 600;
+  letter-spacing: 0.5px;
+  cursor: pointer;
+  transition: background-color 0.3s ease;
+}
+
+.mapclub-btn:hover {
+  background-color: #d20000;
+}
+
+/* --- Kanan --- */
+.mapclub-right {
+  flex: 1;
+  display: flex;
+  justify-content: flex-end;
+  align-items: center; /* sejajarkan vertikal */
+  gap: 10px; /* jarak antara teks dan ikon */
+  text-align: right;
+  margin-top: 90px;
+}
+
+/* Biar teks dan ikon sejajar */
+.mapclub-right p {
+  margin: 0; /* hilangin margin bawaan */
+  font-size: 16px;
+  color: #a19f9f;
+}
+
+.italic-style {
+  font-style: italic;
+}
+
+/* Sosial media */
+.social-icons {
+  display: flex;
+  gap: 10px;
+}
+
+.social-icons a {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 34px;
+  height: 34px;
+  border-radius: 50%;
+  background-color: #f5f5f5;
+  color: #d30e0e;
+  font-size: 16px;
+  transition: all 0.3s ease;
+}
+
+.social-icons a:hover {
+  background-color: #a20000;
+  color: #fff;
+}
+
+/* === BOTTOM BAR === */
+.bottom-bar {
+  background-color: #1a1a1a;
+  color: #dbdada7a;
+  font-size: 11px;
+  padding: 12px 80px;
+}
+
+.bottom-container {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  flex-wrap: wrap;
+  margin-left: -30px;
+}
+
+.bottom-links {
+  display: flex;
+  align-items: center;
+  gap: 2px;
+}
+
+.bottom-links a {
+  color: #e6e6e6;
+  text-decoration: none;
+  transition: color 0.3s ease;
+}
+
+.bottom-links a:hover {
+  color: #fff;
+}
+
+/* === STORE LOCATIONS SECTION === */
+.store-locations {
+  padding: 60px 0 100px;
+  background-color: #fff;
+}
+
+/* Container biar sejajar sama header link */
+.store-locations .container {
+  width: 100%;
+  max-width: 1440px; /* sejajar dengan header map.co.id */
+  margin: 0 auto;
+  padding: 0 150px; /* penting! jarak kiri-kanan sejajar header */
+}
+
+/* Title */
+.store-title {
+  font-size: 54px;
+  font-weight: 700;
+  color: #111;
+  margin-bottom: 25px;
+  margin-left: -4px;
+
+}
+
+/* Tabs kategori */
+.store-categories {
+  display: flex;
+  justify-content: flex-start;
+  flex-wrap: wrap;
+  gap: 30px;
+  margin-bottom: 50px;
+}
+
+/* Link kategori */
+.store-categories a {
+  font-size: 15px;
+  font-weight: 600;
+  color: #555;
+  text-decoration: none;
+  position: relative;
+  padding-bottom: 5px;
+  transition: color 0.3s;
+}
+.store-categories a.active {
+  color: #C8102E;
+}
+.store-categories a.active::after {
+  content: "";
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  width: 100%;
+  height: 2px;
+  background-color: #C8102E;
+}
+
+/* Subtitle dan Title */
+.store-subtitle {
+  font-size: 15px;
+  font-weight: 700;
+  color: #A71E25;
+  letter-spacing: 6px;
+  margin-bottom: 10px;
+  margin-left: -1px;
+}
+
+/* === GRID BRAND === */
+.brand-grid {
+  display: grid;
+  grid-template-columns: repeat(8,minmax(105px, 1fr)) ; /* 8 kolom sejajar */
+  gap: 25px 25px;
+  justify-items: center;
+  align-items: center;
+}
+
+/* Kotak brand */
+.brand-item {
+  background-color: #f5f2f2;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 110px;
+  transition: transform 0.2s ease;
+  padding: 30px 10px;
+}
+
+.brand-item img {
+  max-width: 100px;
+  height: auto;
+  object-fit: contain;
+}
+
+.brand-item:hover {
+  transform: translateY(-5px);
+}
+
+
+/* Logo image */
+.brand-item img {
+  max-width: 100px;
+  height: auto;
+  object-fit: contain;
+}
+
+.load-more-section-store {
+  text-align: center;
+  margin-top: 30px;
+  margin-bottom: 80px;
+}
+.bottom-line-store {
+  width: 95%;
+  height: 2px;
+  background-color: #d10000; /* Garis merah di bawah */
+  margin: -45px auto 1px;
+}
+
+
+/* Animasi halus muncul */
+.nav-item.has-mega:hover .mega-menu {
+  animation: fadeIn 0.25s ease forwards;
+}
+
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+    transform: translateY(10px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+
+/* --- Responsif Footer end --- */
+@media (max-width: 992px) {
+  .footer-container {
+    grid-template-columns: 1fr; /* logo pindah ke bawah */
+  }
+
+  .footer-logo {
+    justify-content: center;
+    margin-top: 20px;
+  }
+
+  .footer-content {
+    grid-template-columns: repeat(2, 1fr);
+  }
+}
+
+@media (max-width: 600px) {
+  .footer-content {
+    grid-template-columns: 1fr;
+  }
+
+  .site-footer {
+    padding: 30px 40px;
+  }
+
+  .footer-logo img {
+    width: 100px;
+  }
+}
+
+/* Responsif News Gallery */
+@media (max-width: 1024px) {
+  .news-item img {
+    height: 320px;
+  }
+}
+
+@media (max-width: 768px) {
+  .news-item img {
+    height: 280px;
+  }
+}
+
+@media (max-width: 500px) {
+  .news-item img {
+    height: 250px;
+  }
+}
+
+/* ---------------------------------- */
+/* 1. LARGE DESKTOP / LAPTOP (<= 1200px) */
+/* ---------------------------------- */
+
+  /* Responsive */
+  @media (max-width: 1200px) {
+      /* Header (Existing + New) */
+      .nav {
+          gap: 20px;
+          margin-left: 0;
+          margin-right: -10px;
+      }
+      .nav-link {
+          font-size: 12px;
+      }
+      .header-content {
+          padding: 0 20px;
+      }
+      /* Stock Info - Sesuaikan posisi */
+      .stock-info {
+          transform: translateX(10px) translateY(-15px);
+          font-size: 12px;
+      }
+      /* Store Locations - Sesuaikan padding container */
+      .store-locations .container {
+          padding: 0 50px;
+      }
+  }
+
+  /* Responsif News Gallery */
+  @media (max-width: 1024px) {
+      .news-item img {
+          height: 320px;
+      }
+  }
+
+/* ---------------------------------- */
+/* 2. TABLET LANDSCAPE (<= 992px) */
+/* ---------------------------------- */
+
+  @media (max-width: 992px) {
+      /* Header (Existing + New) */
+      .nav {
+          display: none; /* Sembunyikan navigasi desktop */
+      }
+      .header-content {
+          justify-content: space-between;
+      }
+      .logo-container {
+          padding-right: 20px;
+      }
+      /* Sembunyikan Stock Info dan sesuaikan bentuk header */
+      .stock-info {
+          display: none;
+      }
+      .dark-section {
+          width: 15%; /* Perkecil area hitam */
+          clip-path: polygon(0% 0, 100% 0, 100% 100%, 30% 100%);
+      }
+      .white-section {
+          width: 20%;
+          clip-path: polygon(0 0, 90% 0, 100% 100%, 0% 100%);
+      }
+      .red-diagonal {
+          left: 0%;
+          clip-path: polygon(0 0, 100% 0, 100% 100%, 15% 100%);
+      }
+  
+      /* News Section */
+      .background-text {
+          font-size: 180px; /* Perkecil teks latar belakang */
+      }
+      .news-filter {
+          position: static; /* Biar sejajar di bawah tab */
+          transform: none;
+          margin-top: 15px;
+      }
+  
+      /* News Gallery */
+      .news-gallery {
+          grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+      }
+  
+      /* Footer (Existing + New) */
+      .footer-container {
+          grid-template-columns: 1fr; /* Logo pindah ke bawah */
+      }
+      .footer-content {
+          grid-template-columns: repeat(2, 1fr); /* 2 kolom di tablet */
+      }
+      .footer-logo {
+          justify-content: center;
+          margin-top: 20px;
+          margin-right: 0;
+      }
+      
+      /* Store Locations */
+      .store-locations .container {
+          padding: 0 30px;
+      }
+      .brand-grid {
+          grid-template-columns: repeat(6, minmax(80px, 1fr)); /* 6 kolom */
+      }
+  }
+
+/* ---------------------------------- */
+/* 3. TABLET PORTRAIT (<= 768px) */
+/* ---------------------------------- */
+  
+  @media (max-width: 768px) {
+      /* Header */
+      .header {
+          height: 60px; /* Perkecil tinggi header */
+      }
+      .logo-text {
+          font-size: 16px;
+      }
+      .logo-subtitle {
+          font-size: 8px;
+      }
+      .icons {
+          transform: translateY(12px) translateX(0);
+          gap: 8px;
+      }
+      /* Sederhanakan bentuk header */
+      .dark-section, .red-diagonal {
+          display: none; 
+      }
+      .white-section {
+          width: 100%;
+          clip-path: none;
+          box-shadow: none;
+      }
+      .header-content {
+          padding: 0 15px;
+      }
+      
+      /* News Section */
+      .section-title {
+          font-size: 36px;
+      }
+      .background-text {
+          font-size: 120px;
+      }
+      .news-tabs {
+          flex-wrap: wrap; /* Tabs bisa ke bawah */
+          gap: 15px;
+      }
+      .news-filter {
+          text-align: left;
+          width: 100%;
+      }
+      
+      /* News Gallery */
+      .news-gallery {
+          grid-template-columns: repeat(auto-fit, minmax(250px, 1fr)); /* Grid 2 kolom */
+          max-width: 90%;
+      }
+      .news-item img {
+          height: 280px;
+      }
+  
+      /* Footer */
+      .footer-col h4 {
+          font-size: 20px;
+      }
+      .mapclub-container {
+          flex-direction: column; /* Mapclub stacking */
+          align-items: center;
+          text-align: center;
+      }
+      .mapclub-left, .mapclub-right {
+          margin-top: 20px;
+          justify-content: center;
+      }
+      .mapclub-right {
+          margin-top: 40px;
+      }
+      
+      /* Store Locations */
+      .store-title {
+          font-size: 40px;
+      }
+      .brand-grid {
+          grid-template-columns: repeat(4, 1fr); /* 4 kolom */
+          gap: 15px;
+      }
+      .store-locations .container {
+          padding: 0 15px;
+      }
+      
+      /* Bottom Bar */
+      .bottom-bar {
+          padding: 12px 15px;
+      }
+      .bottom-container {
+          flex-direction: column;
+          text-align: center;
+          margin-left: 0;
+          gap: 10px;
+      }
+  }
+
+/* ---------------------------------- */
+/* 4. MOBILE PORTRAIT (<= 600px) */
+/* ---------------------------------- */
+  
+  @media (max-width: 600px) {
+      /* Header */
+      .header-content {
+          padding: 0 10px;
+      }
+      .logo-container {
+          padding-right: 10px;
+      }
+      .icons {
+          transform: translateY(12px) translateX(-5px);
+      }
+      
+      /* News Section */
+      .background-text {
+          display: none; /* Sembunyikan teks latar belakang di layar kecil */
+      }
+      .section-title {
+          font-size: 30px;
+      }
+      .section-subtitle {
+          font-size: 16px;
+      }
+  
+      /* News Gallery */
+      .news-gallery {
+          grid-template-columns: 1fr; /* 1 kolom untuk HP */
+          max-width: 95%;
+      }
+      .news-item img {
+          height: 250px;
+      }
+  
+      /* Footer (Existing + New) */
+      .site-footer {
+          padding: 20px 20px;
+      }
+      .footer-content {
+          grid-template-columns: 1fr; /* 1 kolom */
+          gap: 20px;
+      }
+      .footer-col h4 {
+          font-size: 18px;
+      }
+      .footer-logo img {
+          width: 100px;
+      }
+  
+      /* Mapclub */
+      .mapclub-left h2 {
+          font-size: 24px;
+      }
+      .mapclub-btn {
+          padding: 15px 20px;
+      }
+  
+      /* Store Locations */
+      .store-title {
+          font-size: 32px;
+      }
+      .brand-grid {
+          grid-template-columns: repeat(3, 1fr); /* 3 kolom */
+      }
+  }
+
+    </style>
+
+    <!-- Font Awesome buat ikon sosial -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
+
+</head>
+<body>
+    <!-- Header -->
+    <header class="header">
+        <div class="white-section"></div>
+        <div class="red-diagonal"></div>
+        <div class="dark-section"></div>
+
+        <div class="header-content">
+            <!-- Logo -->
+            <div class="logo-container">
+                <a href="#" class="logo">
+                    <img src="https://www.map.co.id/wp-content/uploads/2015/07/MAP_Logo.svg" alt="MAP Logo">
+                </a>
+            </div>
+
+
+            <!-- Navigation -->
+            <nav class="nav">
+                
+                <!-- COMPANY with Mega Menu -->
+                <div class="nav-item has-mega">
+                        <a href="index.html" class="nav-link active">COMPANY</a>
+                        <div class="mega-menu">
+                        <div class="mega-bg-company">COMPANY</div>
+
+                        <!--Left Section -->
+                        <div class="mega-content">
+                                <div class="left">
+                                    <h2>Company<span class="dot">.</span></h2>
+                                    <p>Explore our Company's foundation, achievements, structure and opportunities. Find out what makes us the leading lifestyle retailer in Indonesia.</p>
+                                    <a href="#" class="explore">Explore Our Company →</a>
+                                </div>
+                            
+                            <!-- Middle Section -->
+                            <div class="middle-company">
+                                <a href="#">Company Overview</a>
+                                <a href="#">Key Achievements</a>
+                                <a href="#">Organization Structure</a>
+                            </div>
+
+                            <!-- Right Section -->
+                            <div class="right">
+                            <img src="data:image/jpeg;base64,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" alt="Company Lifestyle Model">
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+
+                    <a href="Brands.html" class="nav-link">BRANDS</a>
+                    
+                    <!-- Investor with Mega Menu -->
+                    <div class="nav-item has-mega">
+                        <a href="#" class="nav-link active">INVESTORS</a>
+                        <div class="mega-menu">
+                            <div class="mega-bg-investors">INVESTORS</div>
+
+                            <div class="mega-content-investors">
+                                
+                                <!-- Kolom Kiri -->
+                                <div class="left">
+                                    <h2>Investor<span class="dot">.</span></h2>
+                                    <p>Obtain an overview of our organizational GCG structure, find out our public disclosure, and explore our company's annual, quarterly, and sustainability reports.</p>
+                                    <a href="#" class="explore">Explore Investor Relations →</a>
+                                </div>
+                                
+                                <!-- Kolom Tautan 1 (Investor Relations) -->
+                                <div class="middle-links-investors">
+                                    <h3>Investor Relations</h3>
+                                    <a href="Investors.html">Financial Reports</a>
+                                </div>
+
+                                <!-- Kolom Tautan 2 (Corporate Governance) -->
+                                <div class="middle-links-investors">
+                                    <h3>Corporate Governance</h3>
+                                    <a href="IConduct.html">Code of Conduct</a>
+                                    
+                                </div>
+
+                                <!-- Kolom Kanan (Gambar) -->
+                                <div class="right">
+                                <img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTdpzJ3eiDgikF01jxKLKHFn5Zu2OG7zzNPZo7ZiHnm9-Gfjviy6FIamuSIWTbnNpdKKkw&usqp=CAU" alt="">
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+
+                        <!-- NEWS with Mega Menu -->
+                        <div class="nav-item has-mega">
+                            <a href="#" class="nav-link active">NEWS</a>
+                            <div class="mega-menu">
+                                <div class="mega-bg">NEWS</div>
+
+                                <div class="mega-content">
+                                    <!-- Left Section -->
+                                    <div class="left">
+                                        <h2>News<span class="dot">.</span></h2>
+                                        <p>Stay informed with our latest updates. Discover events such as store launches, explore promotions, learn about our sustainability initiatives, and stay updated with our press releases.</p>
+                                        <a href="#" class="explore">Explore All News →</a>
+                                    </div>
+
+                                    <!-- Middle Section -->
+                                    <div class="middle">
+                                        <a href="index.html">Corporate</a>
+                                        <a href="#">Press Releases</a>
+                                        <a href="#">Highlights</a>
+                                    </div>
+
+                                    <!-- Right Section -->
+                                    <div class="right">
+                                        <img src="data:image/jpeg;base64,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" alt="Image">
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                    <a href="Contact.html" class="nav-link">CONTACT</a>
+                    <a href="Carrers.html" class="nav-link">CAREERS</a>
+                    
+                        <!-- LOCATIONS with Mega Menu -->
+                        <div class="nav-item has-mega">
+                            <a href="#" class="nav-link active">LOCATIONS</a>
+                            <div class="mega-menu">
+                                <div class="mega-bg-locations">LOCATION</div>
+                                    <div class="mega-content">
+                                    <!-- Left Section -->
+                                    <div class="left">
+                                        <h2>Locations<span class="dot">.</span></h2>
+                                        <p>Explore our office and store locations for easy access. Find corporate inquiries at our office locations and visit our stores for shopping and services. Connect with us at our different locations.</p>
+                                        <a href="#" class="explore">Explore All Locations →</a>
+                                    </div>
+
+                                    <!-- Middle Section -->
+                                    <div class="middle-locations">
+                                        <a href="#">Office Locations</a>
+                                        <a href="StoreLocations.html">Store Locations</a>
+                                    </div>
+
+                                    <!-- Right Section -->
+                                    <div class="right">
+                                        <img src="data:image/jpeg;base64,/9j/4AAQSkZJRgABAQAAAQABAAD/2wCEAAkGBxMTEhUTExMVFhUXGBgXFRYYFxgYFxcYFRgXGBcXFhcYICggGBolHRUVITEhJSkrLi4uFx8zODMtNygtLisBCgoKDg0OGhAQGi0dHR0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLSstLS0tLS0tLS0tKy0tLS0tLS0tK//AABEIAK0BIwMBIgACEQEDEQH/xAAcAAABBQEBAQAAAAAAAAAAAAAEAAECAwUGBwj/xABGEAABAwEEBgcGAwUHAwUAAAABAAIRAwQSITEFIkFRYXEGE4GRobHBMlJystHwI0JiFDNzgpIkNEPC0uHxB2OiFVN0k7T/xAAYAQEBAQEBAAAAAAAAAAAAAAAAAQIDBP/EAB8RAQEBAAIDAAMBAAAAAAAAAAABEQIxEiFBAyJRYf/aAAwDAQACEQMRAD8A9whMQnSQQLVAtVyRCupii6mhXFqiWrWpiotUSxXFqYhNMDFigWoqFFzVdTApahrda2UWGpUcGtGZPkBtPBFWp4Yxzzk1pcYzhokx3LyLpHpupaXXnYNHsMGTfqeP/CnLlizjqzpJ0jfaXRi2kDqs2mPzP3nwHicelSc5pcBqtuhzvytvuDG3jsEkeJ2K6nZWta2pWJawzcaI62rET1YOAaDm86o4nBXVXViALrqYIpGhSY402AG1WcXg9w1zvquBwyAGC5d9unQFx14F4C60i8C1zpkh904taQBAdDoxIEgKLHfi0P8A5DPmKeqB1zi27dLW3SwuLXCXC/feZqucQ5xqS4EmA512VF7cWuEgsqX2nDNpJCfUs2DLaYc7OSSY7Vnu24lPbLSG6zyZPCSSSRsTOxUWBnWzWuMlztoBwb8TtnLNEhpAxO3ZltyWVoGmBl7p5bFrVCfH6ooaq7L72lH6C0j1FdlaL129gTE3mub/AJln1D99qQbOHHdOWOW3JQbXSXThtT2uLQ0NF0AEnCZ1jtPcsQOMhW1RiYnbnG/goFuKCBOfwu+UoYnmjC3OcMDzxBGSH6tVELCDc7Ty71eBBxOOBwy3qJEAR/wnf6N+UII39336qDnTPgmexUWy0imwugmNg4oLX7fvJRJ4oCx2h9YTgxsxAxPae3cj6dADeeJQTsVP8RhmNZvnuQsrQoN12/EPMIKEFYJU5Ke4mKBkk0pIPqpKUmmRITwtsFKSUJIpJJJIFCa6nSQQLVEsVqSujL0y3+z1v4VT5CvE7PSl1Mkkl4a4gxA/Fq04A3QwTM4zwA9w0+4Ns1ckgfhVM+LSB4rxextxs/wM/wD02lZ5LGx0csN4ftlVjrTVNOo9tPAEmnU6tjBOEbhg1o2JunfWufQNZtOmTQbeJ/EptebXYzVBBGs1mpmNaThgtDohSqPsdNtF/V1DQqhjy0Oul1oIvXTgYiYKxelVuYXNpU6oqts1IB9aob7XValqsuLjDrxZ1cnA+0BiQQkWser++cbxdea0hxvy4S4BzjUDXOJunJoYAA1uDUDaKrogYYmTmcZiNg8UZa2ltd4eajnxLnVA5pnrKphrXGbm1pOJa4YAQgLQc+ZWaKdJHU46vzAo57cigNI+x3eYRxBKALQ9PVB4FGVRlG/6qrRh1GjZA8RtRVSMp+8VCBXt470qIEifHkVNxGQ7+5MRuSqVW7M4mZ4Y589qRcfrCi52rjxPg1C1rZ7rS7wHefogucq3OABJIAG0rFtWkKp/M1nBovO7zh4JtENvPJdLjObiSRhxyVTWyx4dlJ47FKs7GOA8grMgVVXOPYPIKaKnFB6XH4TuY8wi4Qulx+E7mPmCoE6NH8M/EfILWJlY/Rw/hu+L0C2ApeyHpuxHMearqiHHmVKITWwazviMd6CslQKlCiqIgJJSkg9t6A6Wo0WVGVKkFzgQJvYRvaPNdtQ0lRf7NVh4BwnuXhYi8ctnundvu4pw3WdIOzY7wi8u9465eT3xJeJ2K11GuaGVqjJ3VDsvbCeG5F09P2xhJFd5xjWvHbwkKeK+T1i3W9lIXnzHATwyHNPZLdTqCWOB3jEEc2nEZheYWfplVLj1oDjgJnhPskiDyCx9IW11WoazQ4FxAgEgi6A2dYXcYnCM1JxpeT3BJc10BvGzXnOc4lxxc4nAARGzacgF0qy0SZOkgyulNnD7JXBJEU3OkfoF6ORiO1eM2QxUpA7HNaMsusLo73OPavbNPf3Wv/CqfI5eIUHfjU/jb8yzWo6XovoltSz2VtptAayq17aVnY646sC9z3dY6bzxnqtgREysnSoa1lmIeGtbQwfN0amkKAabwGrIA1gMM9i6jou+KWjwLL1rjTqA14F2hTv6wvEHF2GqImDuXM9JQymyl1ZLGMp1Qw0wJaxukqIb1YkZACMRkpGuUc/XbdqABpaOrbAc0tc/F4FUh2trADExiDhCFtHqUXWaOtlrS38NriHv6x7nOdUIe910azm3DjjAbmIJcUgcxOJRkLbKF5kAGbuHPBF1YG3ik4+GEIDSukBSDbwcS6YyA3STsGW9FFUmBrQBP/CrqPAxJA480R1RAF6JzMYgcJVFZoJ7vJBnV9KNaQA1zuQgdpPpK0cFznSExUZGUeq6Lbw+iJKhWy7/AEVBV1c4Dt9FQSiubtXtO+I+aM0J7R+9iBtPtu+I+aN0KdY/exavTM7b4GCrr59g8gp7FXWOPY35QsNKXBCaUH4R7PmCMchNJn8N3Z8wVSgujfsO+L0C2Qsbo57Lvi9AtmVL2RElStg/EeP1O8youyT2794/4nfMUVQVEpyVEqobuSTGE6DsC6HGSdmZcBs99p8E1OJcZGzY07OBChQkTBn3oN0z/XuhSpF0uljj47PhK9Lg0KE32Z/+X6uY8fRDucJPs+0fd3/yn72qyxmX05BGf5QI9rbAjPcqnVxiJjWIzI2jc4qCFIm8c8x7x2cC7BPo/LdrHcNvJv33CmnUa4nbiDlub+pn0UrHaWsEEwbx4beDhw70V630CH9kHFxPeB3959B0a5zoC4GyN5z4D7zPPYOjXKtwkkkkUDpz+7V/4VT5CvDqH71nxs+YL3LTX93rfwqnyFeFiqJDm4w7Dm0xt4hZrXFr6N0tbX2ZtGhFOlTaWvqiGxJJM1Xm6zA7MeKybRRpUqRbTqtqVSKTW3GXqTQytSqCalSA4BtOAGhwkp7e2mTSLIuuNd/V/wDtOPUAt4iQ4tPukDMFVECPvYsxqo13ue++6JMXiGtbeMzecGgS4zi7MwELarzadRwMEB8HaDBM+CNaMUJpE/g1eT/Iqotsx1WziYBxxJw3rnul4/d9vmFuUzqtH6R5BYXSrKn2+is7S9OktWY5n0QlTPu8kVX2IWucVlXPdJBrNO4eq6B+awdP5jl6rdLsVb0k7Rq5DmfRUuCsrOkdv35KgnYFKrmbT7b/AIneZR+hBrHs8kJVszy90Md7Tth3rQ0TZ3NJLhGUfYWr0kbEYKqtn2N+UKwOHHsH1KVVzZGBybt/SOHqsqHcEJpIfhu7PMLRpuk5NydvOTSRgSRsVNSoTgYjaAAAecZoVjdH/Zdz9AtodneFVCYlL7RZA94eP0T13NLnO1sSTGAzM5yfJDpSgc1BsZ3un5YUTW3NaP5Z+aVEpiFRPr3e9HAQElABJB15q4ux73cP1sTNAJdkRP8A2vd4wpwZd7QxMfvhsO6VBhMvkuzO1/u8WFehwH2QDrGRxy/n3OjwP0reXfqzPv7xwcp2J34jMtu6f8T9APiPqK+7jJbn/wBv9PAffYh8VgCXSBmBiB7v6mfRPZYcMXH2iMC0YbhiNyrpPF50R7QyLd3xhWaPeYGP5zt57qh+9+aEeu9A6jnWNl5xdEhuWAEQBGfeea6Jc50B/ubeZ9PvM89g6Ncq6TokkkkUDp0/2av/AAqnyFeB2V2r/NU+dy956R/3S0fwavyOXgNlwac/ads3uJHms1qCRUSvKh5SDsFFXtftQtvI6mr8L/IqxuWaThLSCJBzBAxnOUEbO7Vb8LfJY/SWg51yGuOOwErbxwAw2AbgqiEFtR0xiPvkh6jZ2/cKTsvviolwO0SgCtdgFQ4nwRd4Tl4lJzgASTAAJPADND0rWx2LTPGDGGCAknDt3D6KpxnMnxVpbh2/VUlQJoxHMKMKYOsOYWLb9KPaYaGwd8nyhMNazgo1sxyHkq7LeLQ4kGQDEQMQr6mzl6negjRiew+IKqcFawaw5odzzvKBOcqqtoY3NzRzICZzFnaYYAG4bfRWRBjrfT98efkrS4ETvXNkLfpey3kPIK2IvAUSmBSJUUgUkkkHVXBLtXafyt3H9fmpMB18DmYwPuke+N3/ABs5GlbqwZfJlpLmxAwN0Q4kjLWPcVodFnVa1a7BcwMcXXQ03QNuRx4ZnHiu3k4462xE9Y3Pb736/wBRHgfpQ8u/Vns6z9P6lG0WKu0F1Gk5zmtF0loEkl14YNacJ97G8e2NCw1rgNakGkyXSKYAIAPu5apyM4K6viqpE3n+17Q9/cnsM3RgfaOx3He1GnQ+JDQwzmWwXSLuMOZEe0J5b8A36INMw6WgkXNZuLjwDRGeHNNMr1X/AKfWlgsjWlzQbzsCQDicMDB8F0lptbKcXzE5Z8PqF8/V3EMIp9bLTqQTdPF2Eb8l2Oj+mRqtLbR+GWCndBOJJOscdmAWK1Hb23pRSY66CDGZJIjshUs6WAAk0yRGFx14uPAEDPmvN9LaSpuqvc10y44yLsXQBGGcztV7tIMNBzWvF+AAJxJhuW/I9yeld3aeltnq2euNZh6uoAHtIxuOgFwkAzsJ3LxulXvFwAi6QDxls4d6VbSDgSHU3NB1ZdLZLoGE58h6IWyu1qnxD5GrPJYtpWi8HcC4f0mJ8FOjUlpMjA4gbDx7IQlh9l/x1PMqdiP774h8gWVM21v/AGhtPC6Wl2WMicM+CMruOQJHKPVZrT/amH9B/wAyPqkSgrsdUkSSSePJRrtBB+qViGH3uCVXI8kJ0sqHLks+yYV6mzUp+dRH1Nn3vQFD+8P/AIbPmeiibcfw3/A75Sg9AfuR8T/ncjLX+7f8LvIoPQH7kfE/53J8PrUJw7R6qhym52HaPVVEhQS29oXNaUGs3kulGY5rm9JnWbyPmtROXToLH+7b8LfIJVjEcvUpWM6jfhHkE9YZcvUrKwqftN5jzQhRNH2m/EPNDKhOWTpt2q34vRapKytODVb8XokZvTNYZW/R9hvIeQWBZRmugoDUbyHkrSJJk5KYhRThOowkg2aGk6ZAHXU2QZMsEEYYarDjn3rrdGdMbFRpBnXhzpJcRRqCSTngwCBlvgBeNiop9YukmJbr0rS3S2i4vdStFQZQ0B7WmMDEjA4bd65e39JrQ58tdIGIvY+BkbTs2rnmvUr6liOnsXSio0S4y4wNUAAACM9pOZ3lbVHpJRJANapxNwRgATx2HvXn4epU6mPf5Jg6WtpOiKjX03gCHXxdcCSS0gwGwcnY8Vb/AOuUTD3T1l2HFrTdngDjHNcneSvK4Oq0hp8AEXSagMC8AAO448Oe1D2XpERBeJI3Rljh47lzspXlMXXWWjpC2sAxwdAIuC9AaZkkjGfDtT2cQXmRi4EcRdaPMFctZ36w5rQ/by0tA/Nh5KWDZs1Mhr5H53nMbTgc0rIx34mGZEbZ1Ru7UNRtU95Ge4kKxtpBvAbMD2qKpJi0MnDUd6ouq5QFSMZUxW4nvUDaNeLuf3CVQ5qVDVgNAAPAJnARkMeaE6SecvvegKJ/tD/4bPmej3PB2dx+sodlICoX44tDYw2EmZ7UVK0nUf8AC7yKD0H+6HxO+YoysAQQCcQRkNojeqNGWcsZdc4TLjt2kncp8BVQYdo8iq2q4snAEHHfG/fG9QFI8DyIPkqJsGsOYXL6V9pnI+i6qjSdeGqcxsK5TSp1mcj6KxOXToLEfw2fCPJWVjly9SqbA78NnwjyU659nl6lRUqB1m8x5oVXUaoDm4j2htG9C9a3eO9BJyzNNjVb8XoUeao3rP0sbzRG/ls4pGb0Bsbc8Qtyj7LeQ8lhWchpMla9CvqjA5Dd9VanETCSq67h4puuO4d/+yjWrYTqkVDwTIjCCkFd+yQcX0x2z5BWvswnCozud/pW9QMOacIylY2nDrDPwH6ogWOnN01Hk8Gx5lNGe1k925RHatB9OmDheP8AM0eirNCnsb3vx8ApLamwAXYqUrR6hgzpMJ33q3+oBPfAyp0Rxul/zkreX+J58f6zZSvLRFY+7R/+mmfNqTtIvGT44MaGjwgBXx5J58WdSeJGKJqNcXMgE47jwVp0hVd/ivO8FxBPPGD3qLHEyCXSIwM7+KzeNjWwZRvRkczsO9So1CC6cJIOJA2cUCJUWP1ndizi61uvEZjvClTrgbfA/RZt5TY9MNadkrgXfaJw+8Uz7WYEA+H1Rej9CvdYnWwPp3KdRtMsLvxCTdxDd2uOwE7Mch1TJZmVaLbaHRN3xj6pOtLs4Hf/ALKlj9XtUKr8D2qQtEi0Hh4pxVdOJHdw5oYVhMSMh5BQJ1u0fJVVnRoum8yNaMRkB6qtzzB1jkd30UaT8RzCpq1TByyOyNnBVNEkcT3qLxe9ok83E+ZUbPLnRhknqAgkFTZuLlzTkAZAZDMA7BvSDhtYw9kfLCargeweQUJVQRTc3O4BBBEEjbtmcFSHN3O/qH+lIHB3Z5qqUEyG73f0g/5gh7ZRDm4GcciIzw2EqwlM5wju81BnfsJ4d/1WhQoEBowy95pPcDKftUSzFVMW/s7/AHXdxVTgRngpBnFWiq4f4juwn6qKoa5Oruud7zk6DHeMTGGJ5QnaTslUMcrqb1XOibPRxz3qsjXjaus/6e6Ms1ptXV2msKdMMc72g0vIgXA52AwJP8pWR0loUKVtrNs9TrKLXQx4IMi6CcRgYcSJ2xKtstyElzaO6UaP0fRslmqWe1ddaXx19OWkMlhJwAlhDobDjjJOxYVmcSNvcs+pTElX03wIx7CQtfj4WU/J+0aDWtOAm9unPkdh4Hv2IdzzjDCI3zhwIKoJHHvn0Tlw2ud99q9GuU4SJ1A7jO0QMO2FWWHKR/UB6q2lZi72WvdyZPkUbS0FVP5H/wBMeZU1rplOZsJHfPlgiaFKAQThhhmNuwrWZoKoPyxzIHkSnOiyBi5vYSd/AKWxN5XqMsNbskeI85HinNPbE8R67R2rRGjhuJ5NI9Spt0ftuunjdHoFnleBxn5IyHNGwpsQtC10mA3XlrXZ5mTO87clQyzNaBJBkAkTvAIPauNdpv0NZn5Hn6Kbnoo3BH4Y/qPDZtUnWdrsiQN11vnmo0Fp1MO1U2k4SjmaJmXB47RHqhK9ItkHw+5UsiX2DoOIOK6rQ/Re0WizVrZTDTSoTfl0ON2m5zro2w17TjHCVy4Ikoyy6TrU2upMq1G06kdYxr3Bj8He00GDkEu56WLab8RzVLnYHkfJRpuxCiCqNCwPh/YfRWWp+sUDZn63Yra1TFZz9ta30nVdj2DyULyrqVPJRDlpkSyoQHQSMBl8QQ76vFPOB5eoQdeopalq5leCZx3bE37Vjdj7xPohesUQdaZ2HyKprS6xMX8kI+qqKlRDR5qBR61BidjipB7huKoLD+PmnQwrO93zSQUubGAx/wCEm3tyNo2drhBMGRB7ThHYlarDLi5g1ZAxmMcJ8QVlFr9F1IN402iD7T27phTbo+mDr2mmPhl+/K7ns7+GI1rswZAIkxsx4Ki0FrWtgy4zebB1Yyx2zwVnJZI0nWWytma7nmcmN2RnLhGZ37CiKFawtAmhXqHjUDB/4yucFU7ES6q+62GlpE3nAnWk4YZCBhgteVh4x6Fo7RNBzGvFnYLzQ6CL5EiYl2fNaNKwhvssa3k1o8lzXRa0VDRAc551jEmcOea6mkwxtJ5lLyqYmLPOZ8VC1mlSAdUcGgmATOcEx3Aqdw7MOZXJ9M7Sb7KczALjzdgPI96zeWQvp0zOqeJY5jh+kg+SDtLIIjefIrgxUIxGB37UVR0pWb+cmPe1vNYnNJydDaet/LdPfPis6u+ttkcgPMKpmn3fnYDxBjwMomlpikdpbzHqMFvyi7GPa6N8y4mcs/rzQtpsm4k4DPyXUkMqYi67uKHq6OYd45H6o05yhRcHC6RM4TlPEZHtS62q04OOew4d2S2naLjJ3ehqthePyzyQKlpctAvNk4zs5c/BAV7X1xIa26cXSTjhswCKrgwGkZbwhLPX6s3S0BuRIYC6OGLZ7SoVV+wuJJDxvxkKZsVQOBuzxBB2FWC3DDVjZvy7lYXBwvgGAYLsQASCQJynPuKurgctIzBHMFVhy1bNXJ2k+KnaGCCSwTBxj1TUZTX4qbqm9XvsjSccBw/3VIssyAcssOAPqoaYvy+9pThypuumIPcrBTO2BzKqNnozoKpba7bPSIDnAmXGGtDcS4x94qPTHovV0fW6qtdMtvMc0ktc2SJEiQQRl/sVToe31LNVbWo1C2o3IgTngRjgQRhBV3STpDVtlQVbS8Oc1t1uTQ0Z4NHEk/YWLOW/416xzTnJNYdgPNFOtDBl4D6qp1s3DvK3jOJdU7bASNmG0+H1VDrQ48OQUbjjnKuGCjcG3xnyUDam7B6KltnVrbOim/bDu8UyuFEbkkEWWogyDt8jPojKVvYRdeDwwkH6LNa1TKyy3KVJrwYOOQiIjZ9hQtei3E7HHblPcscExmQiNH2p1MuLbsnaQdnIhSRZ6WtsBBgiEcyyCMcghrFbKlWprvnA4AAAdy2rNRkXjjEwOStPbV0KGtYI7NnatphO1VdF7CK9am2S28Q0xjhy7PFdt0r6N0rPSY+mXYuDCDBmQTPA4Ka1I5IFecabtnWV6j9l6BybqjyntXf6UqmnSqOGbWOI5gGF5gAnJz5J3lKcFVCkAsYyRCZItSuoFehEUtI1W5OPbj5octSupBp0tNu/M0Hlh5yimaWpnMlvMfSVglqYNWta2unbVa4YEEcDKTKLJxaI5LAp2XbKLpvcBg89uPmtZrU5LbRothJjDsCEr6IAbeDhOUSB5qb6rjtQ9Z0cVcXQ/wCzHYR98kUarroExAIMXjen3rxInZgAgXWo7AB4qp1Vx/MVcGrUtJwmOZhDvtjfezzgcI9As67O1TFHimAh1uGwE8zCpNsdsgdimyzBWCiFQKXvO0phQKPbTUxTQAts6sbRCL6tLq1NFDaYUgxWlia6ghdThqndTgKCACSshJB//9k=" alt="">
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- LINKS with Mega Menu -->
+                        <div class="nav-item has-mega">
+                            <a href="#" class="nav-link active">LINKS</a>
+                            <div class="mega-menu">
+                                <div class="mega-bg-links">LINKS</div>
+                                <div class="mega-content">
+                                    <!-- Left Section -->
+                                    <div class="left">
+                                        <h2>Links<span class="dot">.</span></h2>
+                                        <p>Discover MAPCLUB, explore MAP Corporate Gifts, and browse MAP Gift Voucher. <span class="italic-text">reward</span> Access our links for convenient services and rewards.</p>
+                                        <a href="#" class="explore">Explore All Links →</a>
+                                    </div>
+
+                                    <!-- Middle Section -->
+                                    <div class="middle-links">
+                                        <a href="LinksClub.html">MAP Club</a>
+                                        <a href="#">MAP Corporate Gifts</a>
+                                        <a href="LinksGift.html">MAP Gift Voucher</a>
+                                    </div>
+
+                                    <!-- Right Section -->
+                                    <div class="right">
+                                    <img src="data:image/jpeg;base64,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" alt="Links">
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+            </nav>
+
+
+
+            <!-- Right Section -->
+            <div class="right-section">
+                <!-- Stock Info -->
+                <div class="stock-info">
+                    <span class="stock-label">IDX MAPI:</span>
+                    <span class="stock-price">Rp 1,155.00</span>
+                    <span class="stock-change">-0.43%</span>
+                </div>
+
+                <!-- Icons -->
+                <div class="icons">
+                    <!-- Globe Icon -->
+                    <svg class="icon globe-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                        <circle cx="12" cy="12" r="10"></circle>
+                        <line x1="2" y1="12" x2="22" y2="12"></line>
+                        <path d="M12 2a15.3 15.3 0 0 0 0 20a15.3 15.3 0 0 0 0-20z"></path>
+                    </svg>
+
+                        <span class="language">EN</span>
+
+                    <!-- Search Icon -->
+                    <svg class="icon search-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                        <circle cx="11" cy="11" r="8"></circle>
+                        <line x1="21" y1="21" x2="16.65" y2="16.65"></line>
+                    </svg>
+                </div>
+            </div>
+        </div>
+    </header>
+
+    <!-- Main Content -->
+    <main class="main-content">
+
+        <!-- News Section -->
+        <section class="news-section">
+            <div class="container">
+                <p class="section-subtitle">MAP NEWS</p>
+                <h1 class="section-title">Highlights & Updates</h1>
+
+                <div class="news-tabs">
+                    <a href="#" class="tab active">CORPORATE</a>
+                    <a href="#" class="tab">PRESS RELEASES</a>
+                    <a href="#" class="tab">HIGHLIGHTS</a>
+                    <a href="#" class="tab">ALL</a>
+                </div>
+
+                <div class="news-filter">
+                    <select class="select-btn">
+                        <option selected>Select</option>
+                        <option>2024</option>
+                        <option>2023</option>
+                        <option>2022</option>
+                        <option>2021</option>
+                        <option>2020</option>
+                        <option>2019</option>
+                        <option>2018</option>
+                        <option>2017</option>
+                        <option>2016</option>
+                        <option>2015</option>
+                        <option>2014</option>
+                    </select>
+                </div>
+            </div>
+
+                <h1 class="background-text">LATEST</h1>
+        </section>
+
+        <!-- News Gallery Section -->
+       <section class="news-gallery">
+            <!-- Gambar 1 -->
+            <div class="news-item">
+                <img src="https://www.map.co.id/wp-content/uploads/2025/07/Boss-01-1.jpg" alt="news image 1">
+                <div class="date-badge">
+                    <span class="month">JUL</span>
+                    <span class="day">30</span>
+                </div>
+                <div class="text-overlay">
+                    <p class="category">CORPORATE</p>
+                    <h3>2Q 2025 Financial Report Press Release</h3>
+                </div>
+            </div>
+
+            <!-- Gambar 2 -->
+            <div class="news-item">
+                <img src="https://www.map.co.id/wp-content/uploads/2025/04/2025.04.Tumbnail-web.561x792px-02.jpg" alt="news image 2">
+                <div class="date-badge">
+                    <span class="month">APR</span>
+                    <span class="day">30</span>
+                </div>
+                <div class="text-overlay">
+                    <p class="category">CORPORATE</p>
+                    <h3>1Q 2025 Financial Report Press Release</h3>
+                </div>
+            </div>
+
+            <!-- Gambar 3 -->
+            <div class="news-item">
+               <img src="https://www.map.co.id/wp-content/uploads/2025/03/2024-0415-16_HOKA_F24_SPEEDGOAT6_KV2_Horizontal_RGB.jpg" alt="news image 3">
+                <div class="date-badge">
+                    <span class="month">MAR</span>
+                    <span class="day">26</span>
+                </div>
+                <div class="text-overlay">
+                    <p class="category">CORPORATE</p>
+                    <h3>MAP ANNOUNCES FULL YEAR 2024 RESULTS</h3>
+                </div>
+            </div>
+
+            <!-- Gambar 4 -->
+            <div class="news-item">
+               <img src="https://www.map.co.id/wp-content/uploads/2024/10/2024.09.Web-Thumbnail.400x500px_Zara.jpg" alt="ZARA Collection Launch 2024">
+                <div class="date-badge">
+                    <span class="month">OCT</span>
+                    <span class="day">30</span>
+                </div>
+                <div class="text-overlay">
+                    <p class="category">CORPORATE</p>
+                    <h3>9M 2024 Financial Report Press Release</h3> 
+                </div>
+            </div>
+
+            <!-- Gambar 5 -->
+            <div class="news-item">
+                  <img src="https://www.map.co.id/wp-content/uploads/2024/08/Untitled-8-02-1.jpg" alt="HOKA Speedgoat 6 Release">
+                <div class="date-badge">
+                    <span class="month">JUL</span>
+                    <span class="day">31</span>
+                </div>
+                <div class="text-overlay">
+                    <p class="category">CORPORATE</p>
+                    <h3>2Q 2024 Financial Report Press Release</h3> 
+                </div>
+            </div>
+
+            <!-- Gambar 6 -->
+            <div class="news-item">
+                <img src="https://www.map.co.id/wp-content/uploads/2024/04/2024.05.Website.400x500px-1-1.jpg" alt="MAP Spring Fashion Campaign 2024">
+                <div class="date-badge">
+                    <span class="month">APR</span>
+                    <span class="day">30</span>
+                </div>
+                <div class="text-overlay">
+                    <p class="category">CORPORATE</p>
+                    <h3>1Q 2024 Financial Report Press Release</h3> 
+                </div>
+            </div>
+
+            <!-- Gambar 7 -->
+            <div class="news-item">
+                <img src="https://www.map.co.id/wp-content/uploads/2024/04/2024.04.Image_.400x600px8.jpg" alt="News Image 7">
+                <div class="date-badge">
+                    <span class="month">MAR</span>
+                    <span class="day">28</span>
+                </div>
+                <div class="text-overlay">
+                    <p class="category">CORPORATE</p>
+                    <h3>FY 2023 Financial Report Press Release</h3> 
+                </div>
+            </div>
+
+            <!-- Gambar 8 -->
+            <div class="news-item">
+                <img src="https://www.map.co.id/wp-content/uploads/2024/04/2024.04.Image_.400x60030.jpg" alt="News Image 8">
+                <div class="date-badge">
+                    <span class="month">OCT</span>
+                    <span class="day">30</span>
+                </div>
+                <div class="text-overlay">
+                    <p class="category">CORPORATE</p>
+                    <h3>9M 2024 Financial Report Press Release</h3> 
+                </div>
+            </div>
+
+            <!-- Gambar 9 -->
+            <div class="news-item">
+                <img src="https://www.map.co.id/wp-content/uploads/2023/07/Photo@2x.png" alt="News Image 9">
+                <div class="date-badge">
+                    <span class="month">JUL</span>
+                    <span class="day">26</span>
+                </div>
+                <div class="text-overlay">
+                    <p class="category">CORPORATE</p>
+                    <h3>2Q 2023 Financial Report Press Release</h3> 
+                </div>
+            </div>
+                
+            <!-- Gambar 10 -->
+            <div class="news-item">
+                <img src="https://www.map.co.id/wp-content/uploads/2024/04/2024.04.Image_.400x60027.jpg" alt="News Image 10">
+                <div class="date-badge">
+                    <span class="month">APR</span>
+                    <span class="day">28</span>
+                </div>
+                <div class="text-overlay">
+                    <p class="category">CORPORATE</p>
+                    <h3>1Q 2023 Financial Report Press Release</h3> 
+                </div>
+            </div>
+
+            <!-- Gambar 11 -->
+            <div class="news-item">
+                <img src="https://www.map.co.id/wp-content/uploads/2024/04/2024.04.Image_.400x60026.jpg" alt="News Image 11">
+                <div class="date-badge">
+                    <span class="month">MAR</span>
+                    <span class="day">29</span>
+                </div>
+                <div class="text-overlay">
+                    <p class="category">CORPORATE</p>
+                    <h3>FY 2022 Financial Report Press Release</h3> 
+                </div>
+            </div>
+
+            <!-- Gambar 12 -->
+            <div class="news-item">
+                <img src="https://www.map.co.id/wp-content/uploads/2024/04/2024.04.Image_.400x60025.jpg" alt="News Image 12">
+                <div class="date-badge">
+                    <span class="month">NOV</span>
+                    <span class="day">08</span>
+                </div>
+                <div class="text-overlay">
+                    <p class="category">CORPORATE</p>
+                    <h3>9M 2022 Financial Report Press Release</h3> 
+                </div>
+            </div>
+
+            <!-- Gambar 13 -->
+            <div class="news-item">
+                <img src="https://www.map.co.id/wp-content/uploads/2024/04/2024.04.Image_.400x60024.jpg" alt="News Image 13">
+                <div class="date-badge">
+                    <span class="month">AUG</span>
+                    <span class="day">09</span>
+                </div>
+                <div class="text-overlay">
+                    <p class="category">CORPORATE</p>
+                    <h3>2Q 2022 Financial Report Press Release</h3> 
+                </div>
+            </div>
+
+            <!-- Gambar 14 -->
+            <div class="news-item">
+                <img src="https://www.map.co.id/wp-content/uploads/2024/04/2024.04.Image_.400x60023.jpg" alt="News Image 14">
+                <div class="date-badge">
+                    <span class="month">MAY</span>
+                    <span class="day">20</span>
+                </div>
+                <div class="text-overlay">
+                    <p class="category">CORPORATE</p>
+                    <h3>1Q 2022 Financial Report Press Release</h3> 
+                </div>
+            </div>
+
+            <!-- Gambar 15 -->
+            <div class="news-item">
+                <img src="https://www.map.co.id/wp-content/uploads/2024/04/2024.04.Image_.400x60019.jpg" alt="News Image 15">
+                <div class="date-badge">
+                    <span class="month">APR</span>
+                    <span class="day">11</span>
+                </div>
+                <div class="text-overlay">
+                    <p class="category">CORPORATE</p>
+                    <h3>FY 2021 Financial Report Press Release</h3> 
+                </div>
+            </div>
+
+            <!-- Gambar 16 -->
+            <div class="news-item">
+                <img src="https://www.map.co.id/wp-content/uploads/2024/04/2024.04.Image_.400x60021.jpg" alt="News Image 16">
+                <div class="date-badge">
+                    <span class="month">NOV</span>
+                    <span class="day">10</span>
+                </div>
+                <div class="text-overlay">
+                    <p class="category">CORPORATE</p>
+                    <h3>9M 2021 Financial Report Press Release</h3> 
+                </div>
+            </div>
+
+            <!-- Gambar 17 -->
+            <div class="news-item">
+                <img src="https://www.map.co.id/wp-content/uploads/2024/04/2024.04.Image_.400x60020.jpg" alt="News Image 17">
+                <div class="date-badge">
+                    <span class="month">AUG</span>
+                    <span class="day">02</span>
+                </div>
+                <div class="text-overlay">
+                    <p class="category">CORPORATE</p>
+                    <h3>2Q 2021 Financial Report Press Release</h3> 
+                </div>
+            </div>
+
+            <!-- Gambar 18 -->
+            <div class="news-item">
+               <img src="https://www.map.co.id/wp-content/uploads/2024/04/2024.04.Image_.400x60017.jpg" alt="News Image 18">
+                <div class="date-badge">
+                    <span class="month">APR</span>
+                    <span class="day">16</span>
+                </div>
+                <div class="text-overlay">
+                    <p class="category">CORPORATE</p>
+                    <h3>FY 2020 Financial Report Press Release</h3> 
+                </div>
+            </div>
+
+            <!-- Gambar 19 -->
+            <div class="news-item">
+               <img src="https://www.map.co.id/wp-content/uploads/2024/04/2024.04.Image_.400x60015.jpg" alt="News Image 19">
+                <div class="date-badge">
+                    <span class="month">NOV</span>
+                    <span class="day">25</span>
+                </div>
+                <div class="text-overlay">
+                    <p class="category">CORPORATE</p>
+                    <h3>9M 2020 Financial Report Press Release</h3> 
+                </div>
+            </div>
+
+            <!-- Gambar 20 -->
+            <div class="news-item">
+               <img src="https://www.map.co.id/wp-content/uploads/2024/04/2024.04.Image_.400x60014.jpg" alt="News Image 20">
+                <div class="date-badge">
+                    <span class="month">AUG</span>
+                    <span class="day">04</span>
+                </div>
+                <div class="text-overlay">
+                    <p class="category">CORPORATE</p>
+                    <h3>2Q 2020 Financial Report Press Release</h3> 
+                </div>
+            </div>
+
+            <!-- Gambar 21 -->
+            <div class="news-item">
+               <img src="https://www.map.co.id/wp-content/uploads/2020/06/2024.10.Image-web.400x500px-02.jpg" alt="News Image 21">
+                <div class="date-badge">
+                    <span class="month">JUN</span>
+                    <span class="day">30</span>
+                </div>
+                <div class="text-overlay">
+                    <p class="category">CORPORATE</p>
+                    <h3>1Q 2020 Financial Report Press Release</h3> 
+                </div>
+            </div>
+
+            <!-- Gambar 22 -->
+            <div class="news-item">
+              <img src="https://www.map.co.id/wp-content/uploads/2024/04/2024.04.Image_.400x600px21.jpg" alt="News Image 22">
+                <div class="date-badge">
+                    <span class="month">APR</span>
+                    <span class="day">16</span>
+                </div>
+                <div class="text-overlay">
+                    <p class="category">CORPORATE</p>
+                    <h3>FY 2019 Financial Report Press Release</h3> 
+                </div>
+            </div>
+
+            <!-- Gambar 23 -->
+            <div class="news-item">
+               <img src="https://www.map.co.id/wp-content/uploads/2024/04/2024.04.Image_.400x6009.jpg" alt="News Image 23">
+                <div class="date-badge">
+                    <span class="month">OCT</span>
+                    <span class="day">31</span>
+                </div>
+                <div class="text-overlay">
+                    <p class="category">CORPORATE</p>
+                    <h3>9M 2019 Financial Report Press Release</h3> 
+                </div>
+            </div>
+
+            <!-- Gambar 24 -->
+            <div class="news-item">
+               <img src="https://www.map.co.id/wp-content/uploads/2024/04/2024.04.Image_.400x600px32.jpg" alt="News Image 24">
+                <div class="date-badge">
+                    <span class="month">JUL</span>
+                    <span class="day">31</span>
+                </div>
+                <div class="text-overlay">
+                    <p class="category">CORPORATE</p>
+                    <h3>2Q 2019 Financial Report Press Release</h3> 
+                </div>
+            </div>
+
+            <!-- Gambar 25 -->
+            <div class="news-item">
+               <img src="https://www.map.co.id/wp-content/uploads/2019/04/2024.09.Web-Thumbnail.400x500px_2XU.jpg" alt="News Image 25">
+                <div class="date-badge">
+                    <span class="month">APR</span>
+                    <span class="day">30</span>
+                </div>
+                <div class="text-overlay">
+                    <p class="category">CORPORATE</p>
+                    <h3>1Q 2019 Financial Report Press Release</h3> 
+                </div>
+            </div>
+
+            <!-- Gambar 26 -->
+            <div class="news-item">
+               <img src="https://www.map.co.id/wp-content/uploads/2024/04/2024.04.Image_.400x6006.jpg" alt="News Image 26">
+                <div class="date-badge">
+                    <span class="month">APR</span>
+                    <span class="day">01</span>
+                </div>
+                <div class="text-overlay">
+                    <p class="category">CORPORATE</p>
+                    <h3>FY 2018 Financial Report Press Release</h3> 
+                </div>
+            </div>
+
+            <!-- Gambar 27 -->
+            <div class="news-item">
+               <img src="https://www.map.co.id/wp-content/uploads/2024/04/2024.04.Image_.400x600px10.jpg" alt="News Image 27">
+                <div class="date-badge">
+                    <span class="month">OCT</span>
+                    <span class="day">31</span>
+                </div>
+                <div class="text-overlay">
+                    <p class="category">CORPORATE</p>
+                    <h3>9M 2018 Financial Report Press Release</h3> 
+                </div>
+            </div>
+
+            <!-- Gambar 28 -->
+            <div class="news-item">
+               <img src="https://www.map.co.id/wp-content/uploads/2024/04/2024.04.Image_.400x600px13.jpg" alt="News Image 28">
+                <div class="date-badge">
+                    <span class="month">JUL</span>
+                    <span class="day">31</span>
+                </div>
+                <div class="text-overlay">
+                    <p class="category">CORPORATE</p>
+                    <h3>2Q 2018 Financial Report Press Release</h3> 
+                </div>
+            </div>
+
+            <!-- Gambar 29 -->
+            <div class="news-item">
+               <img src="https://www.map.co.id/wp-content/uploads/2024/04/2024.04.Image_.400x6002.jpg" alt="News Image 29">
+                <div class="date-badge">
+                    <span class="month">APR</span>
+                    <span class="day">30</span>
+                </div>
+                <div class="text-overlay">
+                    <p class="category">CORPORATE</p>
+                    <h3>1Q 2018 Financial Report Press Release</h3> 
+                </div>
+            </div>
+
+            <!-- Gambar 30 -->
+            <div class="news-item">
+               <img src="https://www.map.co.id/wp-content/uploads/2024/04/2024.04.Image_.400x600px34.jpg" alt="News Image 30">
+                <div class="date-badge">
+                    <span class="month">APR</span>
+                    <span class="day">03</span>
+                </div>
+                <div class="text-overlay">
+                    <p class="category">CORPORATE</p>
+                    <h3>FY 2017 Financial Report Press Release</h3> 
+                </div>
+            </div>
+        </section>
+
+        <!-- Bagian Load More News -->
+        <div class="load-more-section">
+            <a href="#" class="load-more-text">LOAD MORE NEWS</a>
+            <div class="bottom-line"></div>
+        </div>
+    </main>
+
+        <!-- Footer -->
+    <footer class="site-footer">
+        <div class="footer-container">
+
+            <!-- Bagian kiri: semua kolom konten -->
+            <div class="footer-content">
+                <div class="footer-col">
+                    <h4>About<span class="red-dot">■</span></h4>
+                    <ul>
+                        <li><a href="#">Company Overview</a></li>
+                        <li><a href="#">Key Achievements</a></li>
+                        <li><a href="#">Organization Structure</a></li>
+                        <li><a href="#">Careers</a></li>
+                    </ul>
+                </div>
+
+                <div class="footer-col">
+                    <h4>Brands<span class="red-dot">■</span></h4>
+                    <ul>
+                        <li><a href="#">Active</a></li>
+                        <li><a href="#">Kids</a></li>
+                        <li><a href="#">Fashion</a></li>
+                        <li><a href="#">Department Stores</a></li>
+                        <li><a href="#">F&B</a></li>
+                        <li><a href="#">Tech</a></li>
+                        <li><a href="#">Travel</a></li>
+                        <li><a href="#">Gift</a></li>
+                        <li><a href="#">Others</a></li>
+                    </ul>
+                </div>
+
+                <div class="footer-col">
+                    <h4>Investors<span class="red-dot">■</span></h4>
+                    <ul>
+                        <li><a href="#">Financial Reports</a></li>
+                        <li><a href="#">Annual & Sustainability Reports</a></li>
+                        <li><a href="#">Disclosure</a></li>
+                        <li><a href="#">Financial Highlights</a></li>
+                        <li><a href="#">Stock & Shares</a></li>
+                        <li><a href="#">Share Ownerships</a></li>
+                        <li><a href="#">IPO Prospectus</a></li>
+                        <li><a href="#">Article of Association</a></li>
+                    </ul>
+                </div>
+
+                <div class="footer-col">
+                    <h4><span class="invisible-text">-</span><span class="red-dot"></span></h4>
+                    <ul>
+                        <li><a href="#">Audit Committee</a></li>
+                        <li><a href="#">Risks & How We Manage</a></li>
+                        <li><a href="#">Code of Conduct</a></li>
+                        <li><a href="#">Whistleblowing System</a></li>
+                        <li><a href="#">Nomination and Remuneration Committee</a></li>
+                        <li><a href="#">Guidelines & Rules of Work of BOC & BOD</a></li>
+                        <li><a href="#">Internal Audit Unit</a></li>
+                    </ul>
+                </div>
+
+                <div class="footer-col">
+                    <h4>Links<span class="red-dot">■</span></h4>
+                    <ul>
+                        <li><a href="#">MAP Club</a></li>
+                        <li><a href="#">MAP Gift Voucher</a></li>
+                    </ul>
+                </div>
+
+                <div class="footer-col">
+                    <h4>News<span class="red-dot">■</span></h4>
+                    <ul>
+                        <li><a href="#">Corporate</a></li>
+                        <li><a href="#">Press Releases</a></li>
+                        <li><a href="#">Highlights</a></li>
+                        <li><a href="#">All</a></li>
+                    </ul>
+                </div>
+
+                <div class="footer-col">
+                    <h4>Contact<span class="red-dot">■</span></h4>
+                    <ul>
+                        <li><a href="#">Contact</a></li>
+                        <li><a href="#">Office Location</a></li>
+                        <li><a href="#">Store Locations</a></li>
+                    </ul>
+                </div>
+            </div>
+
+            <!-- Bagian kanan: logo -->
+            <div class="footer-logo">
+                <img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSYwodeikN6xjtp1ABdEwS_5V2h1KoEviQkgg&s" alt="MAP Mitra Adiperkasa Logo">
+            </div>
+        </div>
+    </footer>
+
+        <!-- Sub Footer (MAPCLUB Section) -->
+    <section class="mapclub-section">
+        <hr class="divider">
+
+        <div class="mapclub-container">
+            <div class="mapclub-left">
+                <h2>See MAPCLUB Latest News</h2>
+                <button class="mapclub-btn">LOG IN TO MAP CLUB</button>
+            </div>
+
+            <div class="mapclub-right">
+                <p class="italic-style">Connect with us:</p>
+                <div class="social-icons">
+                    <a href="#"><i class="fab fa-instagram"></i></a>
+                    <a href="#"><i class="fab fa-x-twitter"></i></a>
+                    <a href="#"><i class="fab fa-facebook-f"></i></a>
+                    <a href="#"><i class="fab fa-youtube"></i></a>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Bottom Bar -->
+    <footer class="bottom-bar">
+        <div class="bottom-container">
+            <p>© 2025. PT MITRA ADIPERKASA TBK. ALL RIGHTS RESERVED.</p>
+            <div class="bottom-links">
+                <a href="#">PRIVACY POLICY</a>
+                <span>|</span>
+                <a href="#">COPYRIGHT POLICY</a>
+            </div>
+        </div>
+    </footer>
+
+</body>
+</html>

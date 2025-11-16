@@ -1,0 +1,1522 @@
+<!doctype html>
+<html lang="id">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Map.co.id</title>
+  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@600;700&family=Roboto:wght@400;500&display=swap" rel="stylesheet">
+  <style>
+/* styles.css - starter template to mimic Map.co.id layout */
+:root{
+  --max-w: 1280px;
+  --red: #b7122a;
+  --muted: #f6f6f6;
+  --text: #222;
+  --gap: 20px;
+}
+
+*{box-sizing:border-box}
+html{font-family: Roboto, Arial, sans-serif; font-size:16px}
+body{margin:0;color:var(--text);background:#fff}
+.container{max-width:var(--max-w);margin:0 auto;padding:0 20px}
+.logo{height:36px}
+.search select.cat{padding:10px;border:1px solid #e6e6e6;border-radius:4px 0 0 4px;background:#fff}
+.search input[type="search"]{flex:1;padding:12px 16px;border:1px solid #e6e6e6;border-left:none;border-radius:0 6px 6px 0}
+.btn{padding:10px 14px;border-radius:6px;border:none;cursor:pointer}
+
+/* === Topbar === */
+.topbar {
+  background: none;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  background: #f7f7f7;
+  padding: 12px 30px;
+  font-size: 13px;
+  color: #555;
+}
+
+.top-header{
+    position: sticky;
+    z-index: 100;
+    top: 0;
+    background: #fff;
+}
+
+.topbar-wrapper {
+  background: #f7f7f7;
+  width: 100%;
+}
+
+.top-left a, .top-right a {
+  text-decoration: none;
+  color: #555;
+  margin-right: 12px;
+}
+
+.social-icon {
+  width: 16px;
+  height: 16px;
+  vertical-align: middle;
+  margin-right: 8px;
+}
+
+.social-icon-maps {
+  width: 16px;
+  height: 16px;
+  vertical-align: middle;
+  margin-right: 4px;
+  margin-top: -3px;
+}
+
+.top-right .lang {
+  font-weight: 500;
+  color: #222;
+}
+
+/* === Main Header === */
+.main-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 14px 30px;
+  border-bottom: 1px solid #e6e6e6;
+
+}
+
+.logo {
+  height: 36px;
+}
+
+.search {
+  flex: 1;
+  display: flex;
+  align-items: center;
+  margin: 0 40px;
+}
+
+.search .cat {
+  padding:0 12px;
+  font-size:14px;
+  color:#222;
+  background:none;
+  border:none;
+  cursor:pointer;
+}
+
+
+.search input[type="search"] {
+  flex: 1;
+  padding: 10px 16px;
+  border: 1px solid #ddd;
+  border-radius: 6px 6px 6px 6px;
+  font-size: 14px;
+  box-shadow: 0 2px 4px rgba(0,0,0,0.080);
+}
+
+.actions {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  position: relative;
+}
+
+.svg-icon {
+  width: 34px;
+  height: 34px;
+  background-size: 18px;
+  background-position: center;
+  background-repeat: no-repeat;
+  border: 1px solid transparent;
+  cursor: pointer;
+}
+
+.btn.login {
+  padding: 8px 14px;
+  border: 1px solid #000;
+  background: #fff;
+  font-size: 13px;
+  border-radius: 4px;
+  cursor: pointer;
+}
+
+.login-wrapper {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-end;
+  position: relative;
+}
+
+.badge.red {
+  background: var(--red);
+  color: #fff;
+  font-size: 14px;
+  font-weight: 500;
+  padding: 6px 16px;
+  border-radius: 3px 3px 3px 3px;
+  position: fixed;
+  right: 72px;      /* sejajarkan ke kanan layar */
+  top: 95px;        /* posisikan di bawah header utama */
+  z-index: 999;     /* biar di atas semua elemen lain */
+  box-shadow: 0 2px 6px rgba(0,0,0,0.1);
+}
+
+
+/* Navigation */
+.nav{
+  display:flex;
+  align-items:center;
+  justify-content:space-between;
+  padding:12px 0;
+  border-top:1px solid #f0f0f0;
+  border-bottom:1px solid #f0f0f0
+}
+
+.nav-items{
+  list-style:none;
+  display:flex;
+  gap:24px;
+  margin:0;
+  padding:0
+}
+
+.nav-items li{
+  font-size:14px;
+  color:#666;
+  letter-spacing:0.6px
+}
+
+/* Hero */
+.hero{padding:38px 0}
+.hero-wrap {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  overflow: hidden;       /* biar bagian luar frame disembunyikan */
+}
+
+.hero-img {
+  width: 90%;
+  height: auto;
+  max-height: 340px;      /* batasin tinggi maksimal */
+  object-fit: cover;      /* biar tetap mengisi tapi proporsional */
+  border-radius: 6px;
+}
+
+/* Hero */
+.hero-dots {
+  position: absolute;
+  left: 8%;
+  transform: translateX(-100%);
+  transform: translateY(-135px);
+  bottom: -18px;
+  display: flex;
+  gap: 8px;
+}
+
+.dot {
+  width: 8px;
+  height: 8px;
+  border-radius: 50%;
+  background: #ddd;
+  display: inline-block;
+}
+
+.dot.active {
+  background: var(--red);
+}
+
+
+/* Browse Products */
+.browse {
+  text-align: center;
+  padding: 20px 0;
+}
+
+.browse h2 {
+  font-family: 'Poppins', sans-serif;
+  font-weight: 600;
+  font-size: 28px;
+  margin-bottom: 28px;
+  color: #111;
+}
+
+/* inilah perbaikannya */
+.icons-row {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-wrap: nowrap;
+  gap: 3px;
+  max-width: 1200px; /* biar pas dalam satu frame */
+  margin: 0 auto; /* center-kan di tengah halaman */
+  overflow: hidden; /* sembunyikan kemungkinan scroll */
+}
+
+.icon-item {
+  flex: 0 0 auto;
+  width: 80px;
+  text-align: center;
+}
+
+.icon-item img {
+  width: 64px;
+  height: 64px;
+  border-radius: 50%;
+  background: #fafafa;
+  border: 1px solid #eee;
+  padding: 14px;
+  transition: all 0.2s ease;
+  object-fit: contain;
+}
+
+.icon-item:hover img {
+  transform: scale(1.08);
+  border-color: #ddd;
+}
+
+.icon-label {
+  font-size: 11px;
+  line-height: 1.3;
+  margin-top: 8px;
+  color: #333;
+  font-family: 'Poppins', sans-serif;
+  font-weight: 400;
+}
+
+/* Promos */
+.promos {
+  padding: 18px 0;
+}
+
+/* Promos */
+.promos {
+  padding: 18px 0;
+}
+
+/* !!! PERUBAHAN UTAMA UNTUK TATA LETAK PROMO DUA KOLOM TIDAK SAMA LEBAR !!! */
+.promo-split {
+  display: flex; /* Aktifkan Flexbox */
+  gap: var(--gap); /* Jarak 20px antara dua banner */
+  margin-bottom: 18px; /* Jarak ke konten di bawahnya */
+}
+
+/* Atur lebar kolom Kiri (Banner Lebar) */
+.promo-left {
+  flex: 0 0 71%; /* Tetapkan lebar 70% */
+}
+
+/* Atur lebar kolom Kanan (Banner Kecil) */
+.promo-right {
+  flex: 0 0 calc(25% - var(--gap)); /* Tetapkan lebar 30% dikurangi gap */
+}
+
+/* Terapkan styling ke gambar di dalamnya */
+.promo-split img {
+  width: 100%; /* Gambar akan mengisi 100% dari kolomnya (70% atau 30%) */
+  height: auto;
+  object-fit: cover;
+  border-radius: 6px;
+}
+
+/* 2. !!! TAMBAHAN STYLING UNTUK SINGLE PROMO (100% LEBAR) !!! */
+.promo-row {
+  /* Ini hanya sebagai container jika diperlukan, tidak perlu flex */
+  margin-bottom: 18px; /* Beri jarak ke konten di bawahnya */
+}
+
+.promo-row img {
+  width: 96%; /* Kunci agar gambar memanjang 100% dari .container */
+  max-height: 400px; /* Batasan tinggi opsional */
+  object-fit: cover;
+  border-radius: 6px;
+}
+
+
+/* Featured deals */
+.featured {
+  padding: 28px 0;
+  background: white;
+}
+
+.section-head {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 20px;
+}
+
+.section-head h3 {
+  font-family: 'Nunito Sans', -apple-system, BlinkMacSystemFont, sans-serif;
+  margin: 0;
+  font-size: 30px;
+  font-weight: 700;
+  color: #1a1a1a;
+}
+
+.see-all {
+  color: #1a1a1a;
+  text-decoration: none;
+  margin-top: 23px;
+  font-size: 14px;
+  font-weight: 600;
+  display: flex;
+  align-items: center;
+  gap: 4px;
+}
+
+.see-all::after {
+  content: '→';
+  color: var(--red);
+  margin-left: 2px;
+}
+
+.see-all:hover {
+  text-decoration: underline;
+}
+
+.tabs {
+  display: flex;
+  gap: 32px;
+  margin-bottom: 20px;
+}
+
+.tab {
+  background: none;
+  border: none;
+  padding: 12px 0;
+  cursor: pointer;
+  font-weight: 600;
+  color: #1a1a1a;
+  font-size: 13px;
+  position: relative;
+  transition: color 0.3s;
+  letter-spacing: 0.3px;
+}
+
+.tab.active {
+  color: #1a1a1a;
+}
+
+.tab.active::after {
+  content: '';
+  position: absolute;
+  bottom: -1px;
+  left: 0;
+  right: 0;
+  height: 3px;
+  background: var(--red);
+}
+
+.tab:hover {
+  color: #1a1a1a;
+}
+
+.deals-row {
+  display: flex;
+  gap: 16px;
+  overflow-x: auto;
+  padding-bottom: 8px;
+  scrollbar-width: thin;
+}
+
+.deals-row::-webkit-scrollbar {
+  height: 6px;
+}
+
+.deals-row::-webkit-scrollbar-track {
+  background: #f1f1f1;
+}
+
+.deals-row::-webkit-scrollbar-thumb {
+  background: #888;
+  border-radius: 3px;
+}
+
+.deal-card {
+  min-width: 220px;
+  background: #fff;
+  padding: 0;
+  border: 1px solid #e8e8e8;
+  overflow: hidden;
+  cursor: pointer;
+  transition: transform 0.2s, box-shadow 0.2s;
+}
+
+.deal-card:hover {
+  transform: translateY(-4px);
+  box-shadow: 0 4px 12px rgba(0,0,0,0.1);
+}
+
+.deal-card img {
+  width: 100%;
+  height: 140px;
+  object-fit: cover;
+  display: block;
+}
+
+.deal-card p {
+  font-size: 13px;
+  padding: 12px;
+  margin: 0;
+  color: #1a1a1a;
+  font-weight: 500;
+  line-height: 1.4;
+}
+
+
+/* Shop by Brands */
+.brands {
+  padding: 40px 0;
+  background: white;
+}
+
+.brands h2 {
+  font-size: 30px;
+  font-weight: 700;
+  color: #1a1a1a;
+  margin-bottom: 32px;
+}
+
+.brands-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 32px;
+}
+
+.brands-header h2 {
+  margin: 0;
+}
+
+.brands-see-all {
+  color: #1a1a1a !important;
+  text-decoration: none;
+  font-size: 14px;
+  font-weight: 600;
+  display: flex !important;
+  align-items: center;
+  gap: 4px;
+}
+
+.brands-see-all::after {
+  content: '→';
+  color: var(--red);
+  margin-left: 2px;
+}
+
+.brands-see-all:hover {
+  text-decoration: underline;
+}
+
+.brands-grid {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 16px;
+  margin-bottom: 24px;
+}
+
+.brand-item {
+  display: flex;
+  flex-direction: column;
+  gap: 0;
+  cursor: pointer;
+}
+
+.brand-logo {
+  background: white;
+  border: 1px solid #e5e5e5;
+  height: 140px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 20px;
+  transition: transform 0.2s;
+}
+
+.brand-logo:hover {
+  transform: translateY(-2px);
+}
+
+.brand-logo img {
+  max-width: 100%;
+  max-height: 100%;
+  object-fit: contain;
+  filter: grayscale(100%);
+  transition: filter 0.3s;
+}
+
+.brand-item:hover .brand-logo img {
+  filter: grayscale(0%);
+}
+
+.brand-button {
+  background: var(--red);
+  color: white;
+  text-align: center;
+  padding: 12px;
+  font-weight: 700;
+  font-size: 13px;
+  letter-spacing: 0.5px;
+  text-transform: uppercase;
+  transition: background 0.3s;
+}
+
+.brand-item:hover .brand-button {
+  background: #a01729;
+}
+
+/* Dropdown Section */
+.dropdown-section {
+  margin-top: 32px;
+  padding-top: 4px;
+}
+
+.dropdown-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  cursor: pointer;
+  padding: 16px 0;
+}
+
+.dropdown-header h3 {
+  font-size: 26px;
+  font-weight: 500;
+  color: #1a1a1ad2;
+  margin: 0;
+}
+
+.dropdown-icon {
+  font-size: 20px;
+  color: #666;
+  transition: transform 0.3s;
+}
+
+.dropdown-icon.open {
+  transform: rotate(180deg);
+}
+
+@media (max-width: 768px) {
+  .brands-grid {
+    grid-template-columns: repeat(2, 1fr);
+  }
+}
+
+/* Responsive tweaks */
+@media (max-width:900px){
+  .brand-grid{grid-template-columns:repeat(2,1fr)}
+  .main-header{flex-wrap:wrap;gap:12px}
+  .search{order:3;width:100%}
+  .actions{order:2}
+}
+
+/* Footer */
+.footer {
+  background: #f8f8f8;
+  padding: 40px 0 0;
+  margin-top: 40px;
+}
+
+.footer .container {
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 0 20px;
+}
+
+.footer-top {
+  display: grid;
+  grid-template-columns: 200px 1fr 200px 280px;
+  gap: 60px;
+  padding-bottom: 40px;
+}
+
+.footer-col h4 {
+  margin: 0 0 20px 0;
+  font-size: 15px;
+  font-weight: 700;
+  color: #1a1a1a;
+}
+
+.footer-col ul {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+}
+
+.footer-col ul li {
+  margin-bottom: 12px;
+  font-size: 14px;
+  color: #333;
+  cursor: pointer;
+}
+
+.footer-col ul li:hover {
+  color: #c62828;
+}
+
+.footer-col p {
+  font-size: 13px;
+  color: #333;
+  margin: 6px 0;
+  line-height: 1.6;
+}
+
+/* Logo Column */
+.col-logo img {
+  width: 160px;
+  margin-bottom: 24px;
+}
+
+
+/* Payment Methods - TANPA BORDER */
+.payments {
+  display: grid;
+  grid-template-columns: repeat(5, 1fr);
+  gap: 12px;
+  margin-top: 16px;
+  margin-bottom: 32px;
+}
+
+.payments img {
+  width: 100%;
+  max-width: 65px;
+  height: auto;
+  border: none;
+  border-radius: 0;
+  padding: 0;
+  background: transparent;
+  object-fit: contain;
+}
+
+/* Help Section - PERBAIKAN TOTAL */
+.col-help .help-item {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  margin-bottom: 20px;
+  font-size: 14px;
+  color: #333;
+  cursor: pointer;
+}
+
+.col-help .help-item:hover {
+  color: #c62828;
+}
+
+.col-help .help-item img {
+  width: 20px;
+  height: 20px;
+}
+
+.col-help .contact-info {
+  margin-top: 16px;
+}
+
+.col-help .contact-title {
+  font-size: 14px;
+  font-weight: 700;
+  margin: 0 0 12px 0;
+  color: #1a1a1a;
+}
+
+.col-help .contact-info p {
+  margin: 4px 0;
+  font-size: 13px;
+  color: #333;
+}
+
+
+.col-help .contact-info p strong {
+  font-weight: 600;
+}
+
+/* Email dan Telp dalam satu baris dengan garis vertikal */
+.contact-row {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  margin: 8px 0;
+  padding-bottom: 16px;
+  margin-bottom: 16px;
+}
+
+.contact-row span {
+  font-size: 13px;
+  color: #333;
+  margin-right: -10px;
+}
+
+.contact-divider {
+  width: 1px;
+  height: 16px;
+  background: #202020;
+}
+
+/* Payment Methods */
+.payments {
+  display: grid;
+  grid-template-columns: repeat(5, 1fr);
+  gap: 12px;
+  margin-top: 16px;
+  margin-bottom: 20px;
+}
+
+.payments img {
+  width: 100%;
+  max-width: 65px;
+  height: auto;
+  border: none;
+  border-radius: 0;
+  padding: 0;
+  background: transparent;
+  object-fit: contain;
+}
+
+/* System Security - JARAK LEBIH DEKAT */
+.system-security {
+  grid-column: 2;
+  padding-top: 1px;
+  margin-top: -85px;
+  border-top: none;
+}
+
+.system-security h4 {
+  font-size: 15px;
+  font-weight: 700;
+  margin: 0 0 16px 0;
+  color: #1a1a1a;
+}
+
+.security-item {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  font-size: 14px;
+  color: #333;
+}
+
+.security-item img {
+  width: 28px;
+  height: 28px;
+}
+
+/* Copyright - dengan background merah dan hitam */
+.footer-copyright {
+  background: linear-gradient(to right, #c62828 0%, #1a1a1a 50%, #1a1a1a 100%);
+  padding: 16px 0;
+  text-align: center;
+  font-size: 13px;
+  color: #ffffff;
+  margin: 0;
+  margin-top: 40px;
+}
+
+/* Responsive */
+@media (max-width: 1024px) {
+  .footer-top {
+    grid-template-columns: 1fr 1fr;
+    gap: 40px;
+  }
+
+  .payments {
+    grid-template-columns: repeat(4, 1fr);
+  }
+
+  .system-security {
+    grid-column: 1 / -1;
+  }
+}
+
+@media (max-width: 768px) {
+  .footer-top {
+    grid-template-columns: 1fr;
+    gap: 30px;
+  }
+
+  .payments {
+    grid-template-columns: repeat(3, 1fr);
+  }
+
+  .join-now-button {
+    max-width: 160px;
+  }
+}
+
+@media (max-width: 480px) {
+  .payments {
+    grid-template-columns: repeat(2, 1fr);
+  }
+}
+
+/* Footer Bottom - Social Media & App Download */
+.footer-bottom {
+  background: #c62828;
+  padding: 20px 0;
+  margin-top: 40px;
+}
+
+.footer-bottom-content {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+/* Social Media Links */
+.social-links {
+  display: flex;
+  align-items: center;
+  gap: 24px;
+}
+
+.social-link {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  color: white;
+  text-decoration: none;
+  font-size: 14px;
+  font-weight: 500;
+  transition: opacity 0.3s;
+}
+
+.social-link:hover {
+  opacity: 0.8;
+}
+
+.social-link svg {
+  width: 16px;
+  height: 16px;
+  stroke: white;
+}
+
+/* App Download Section */
+.app-download {
+  display: flex;
+  align-items: center;
+  gap: 16px;
+}
+
+.download-label {
+  color: white;
+  font-size: 14px;
+  font-weight: 300;
+}
+
+.app-buttons {
+  display: flex;
+  gap: 12px;
+}
+
+.app-btn {
+  display: block;
+  transition: transform 0.2s;
+}
+
+.app-btn:hover {
+  transform: translateY(-2px);
+}
+
+.app-btn img {
+  display: block;
+  height: 36px;
+  width: auto;
+}
+
+/* Copyright - Background Hitam */
+.footer-copyright {
+  background: #000000;
+  padding: 16px 0;
+  text-align: center;
+  font-size: 13px;
+  color: #ffffff;
+  margin: 0;
+}
+
+    /* Responsive */
+  @media (max-width: 768px) {
+  .footer-bottom-content {
+    flex-direction: column;
+    gap: 20px;
+    text-align: center;
+  }
+
+  .social-links {
+    flex-wrap: wrap;
+    justify-content: center;
+    gap: 16px;
+  }
+
+  .app-download {
+    flex-direction: column;
+    gap: 12px;
+  }
+
+  .app-buttons {
+    flex-direction: column;
+    align-items: center;
+  }
+}
+
+/* === FIXES UNTUK LAYAR SEDANG (Tablet & Mobile Landscape: <= 992px) === */
+@media (max-width: 992px) {
+    /* Promo Banners: Agar Dua Banner Split Menumpuk Vertikal */
+    .promo-split {
+        flex-direction: column;
+        gap: 15px;
+    }
+    .promo-left, .promo-right {
+        flex: 0 0 100%; /* Ambil 100% lebar */
+    }
+
+    /* Navbar: Jika kamu menambahkan navigasi utama di bawah main-header, 
+       pastikan ia terlihat */
+    .nav-items {
+        gap: 16px;
+        flex-wrap: wrap;
+        justify-content: center;
+    }
+}
+
+
+/* === FIXES UNTUK LAYAR KECIL (Ponsel Portrait: <= 580px) === */
+@media (max-width: 580px) {
+    /* 1. Kontainer & Mencegah Scroll Horizontal (Penting!) */
+    .container {
+        padding: 0 15px; /* Kurangi padding horizontal */
+    }
+    body {
+        overflow-x: hidden; /* Mencegah body scroll horizontal */
+    }
+
+    /* 2. Header Topbar: Sederhanakan */
+    .topbar {
+        padding: 10px 15px;
+        flex-direction: column;
+        align-items: flex-start;
+        gap: 8px;
+        font-size: 12px;
+    }
+    .top-left a:nth-child(2), /* Hide Membership */
+    .top-right a:nth-child(1), /* Hide Download App */
+    .top-right a:nth-child(2) { /* Hide Pusat Bantuan */
+        display: none;
+    }
+    
+    /* 3. Header Utama: Tumpuk Vertikal */
+    .main-header {
+        padding: 12px 15px;
+        flex-direction: column; /* Tumpuk ke bawah: Logo, Actions, Search */
+        gap: 12px;
+        align-items: flex-start;
+    }
+    .search {
+        order: 3;
+        width: 100%;
+        margin: 0;
+    }
+    .actions {
+        order: 2;
+        align-self: flex-end; /* Tarik ikon ke kanan */
+    }
+    .brand {
+        order: 1;
+    }
+    .badge.red {
+        display: none; /* Sembunyikan badge yang mengganggu di mobile */
+    }
+    .search input[type="search"] {
+        padding: 8px 12px;
+    }
+
+    /* 4. Hero Section */
+    .hero {
+        padding: 18px 0;
+    }
+    .hero-img {
+        max-height: 180px; /* Kurangi tinggi gambar */
+    }
+    .hero-dots {
+        display: none; /* Sembunyikan dots di mobile */
+    }
+
+    /* 5. Browse Icons (FIX KRITIS untuk "Kepotong") */
+    .icons-row {
+        /* Mengizinkan scroll horizontal agar konten tidak terpotong */
+        overflow-x: auto; 
+        justify-content: flex-start; /* Mulai dari kiri */
+        padding-bottom: 10px; /* Ruang untuk scrollbar */
+        gap: 10px;
+    }
+    .icon-item {
+        min-width: 60px; /* Minimal lebar item ikon */
+    }
+    .icon-item img {
+        width: 48px;
+        height: 48px;
+        padding: 8px;
+    }
+    .icon-label {
+        font-size: 10px;
+    }
+
+    /* 6. Featured Deals */
+    .section-head {
+        flex-direction: column;
+        align-items: flex-start;
+    }
+    .section-head h3 {
+        font-size: 22px;
+    }
+    .tabs {
+        /* Tab dibuat scrollable secara horizontal */
+        overflow-x: auto;
+        padding-bottom: 8px;
+        justify-content: flex-start;
+        gap: 16px;
+    }
+    .tab {
+        min-width: fit-content;
+        font-size: 12px;
+    }
+    .deal-card {
+        min-width: 180px; /* Sedikit dikecilkan */
+    }
+
+    /* 7. Brands Grid */
+    .brands-header {
+        flex-direction: column;
+        align-items: flex-start;
+        gap: 5px;
+    }
+    .brands-grid {
+        /* Turunkan dari 2 kolom (768px) menjadi 1 kolom */
+        grid-template-columns: 1fr; 
+    }
+    .brand-logo {
+        height: 80px;
+        padding: 10px;
+    }
+    
+    /* 8. Footer Top */
+    .footer {
+        padding: 20px 0 0;
+    }
+    .footer-top {
+        grid-template-columns: 1fr; /* Semua kolom jadi vertikal */
+        gap: 20px;
+        padding-bottom: 20px;
+    }
+    
+    .payments {
+        grid-template-columns: repeat(3, 1fr); /* Tetap 3 kolom */
+        gap: 8px;
+    }
+    
+    /* Fix email & telp agar menumpuk */
+    .contact-row {
+        flex-direction: column; 
+        align-items: flex-start;
+        gap: 4px;
+    }
+    .contact-divider {
+        display: none;
+    }
+
+    /* Fix system security position */
+    .system-security {
+        grid-column: 1; 
+        margin-top: 0;
+    }
+
+    /* 9. Footer Bottom */
+    .footer-bottom-content {
+        flex-direction: column;
+        gap: 15px;
+    }
+    .social-links {
+        flex-wrap: wrap;
+        justify-content: center;
+        gap: 16px;
+    }
+    .app-download {
+        flex-direction: column;
+        gap: 8px;
+        align-items: center;
+    }
+    .app-buttons {
+        gap: 8px;
+    }
+    
+    .footer-copyright {
+        padding: 12px 0;
+        font-size: 11px;
+    }
+}
+    </style>
+</head>
+
+<body>
+    <header class="top-header">
+        <div class="topbar-wrapper">
+            <div class="topbar container">
+                <div class="top-left">
+                <a href="#"><img src="/Images/googlemaps.svg" alt="icon-maps" class="social-icon-maps">Lihat Lokasi Kami ▾</a>
+                <a href="#">Membership</a>
+                <a href="#"><img src="/Images/instagram.svg" alt="Instagram" class="social-icon"></a>
+                <a href="#"><img src="/Images/tiktok.svg" alt="TikTok" class="social-icon"></a>
+                </div>
+                <div class="top-right">
+                <a href="#">Download App</a>
+                <a href="#">Pusat Bantuan</a>
+                <span class="lang">EN | ID</span>
+                </div>
+            </div>
+        </div>
+
+        <div class="main-header container">
+            <div class="brand">
+            <a href="index.html"><img src="https://res.mapclub.com/resources/v2/images/common/mapclub-logo.svg" alt="MAPCLUB" class="logo"></a>
+            </div>
+
+            <div class="search">
+            <div class="cat">Kategori ▾</div>
+            <input type="search" placeholder="Cari baju, toko, brand" />
+            </div>
+
+            <div class="actions">
+                <a class="svg-icon" title="Wishlist" href="/account/wish-list" style="background-image:url(https://res.mapclub.com/resources/v2/images/svg/heart.svg)"></a>
+                <a class="svg-icon" title="Shopping Bag" href="/shoppingcart" style="background-image:url(https://res.mapclub.com/resources/v2/images/svg/cart.svg)"></a>
+                <a class="svg-icon" title="Notification" href="/account/notification" style="background-image:url(https://res.mapclub.com/resources/v2/images/svg/notification.svg);"></a> |
+                <div class="login-wrapper">
+                    <button class="btn login">Masuk atau Daftar</button>
+                    <div class="badge red">Enjoy up to 5% <br> extra discount</div>
+                </div>
+            </div>
+        </div>
+    </header>
+
+
+<main>
+    <!-- Hero -->
+    <section class="hero container">
+      <div class="hero-wrap">
+        <img src="https://static.id.gtech.asia/prod/100003/20251023/C1445908A833124BF7A72457963C5EB4.jpeg?x-oss-process=image/resize,w_2656/format,jpeg" alt="Hero" class="hero-img">
+        <div class="hero-dots">
+          <span class="dot active"></span>
+          <span class="dot"></span>
+          <span class="dot"></span>
+          <span class="dot"></span>
+        </div>
+      </div>
+    </section>
+
+    <!-- Browse Products -->
+    <section class="browse container">
+      <h2>Browse Products</h2>
+      <div class="icons-row">
+        <div class="icon-item"><img src="https://static.id.gtech.asia/prod/100003/20240910/8F9C9E0394121A917AEF9B1B42839A3E.png?x-oss-process=image/resize,w_600/format,webp" alt="BNI MAPCLUB Card"><div class="icon-label">BNI MAPCLUB Card</div></div>
+        <div class="icon-item"><img src="https://static.id.gtech.asia/prod/100003/20250131/D5C0404EF13943F19A9A29BD0A007091.jpeg?x-oss-process=image/resize,w_600/format,webp" alt="EXCLUSIVE PRICE"><div class="icon-label">EXCLUSIVE PRICE</div></div>
+        <div class="icon-item"><img src="https://static.id.gtech.asia/prod/100003/20241023/E23FAF790C8E4811136FE5110EB60567.png?x-oss-process=image/resize,w_600/format,webp" alt="MAP GIFT"><div class="icon-label">MAP GIFT VOUCHER</div></div>
+        <div class="icon-item"><img src="https://static.id.gtech.asia/prod/100003/20250422/40C4D318DD132614C64BCF14F9F90D93.png?x-oss-process=image/resize,w_600/format,webp" alt="PETS"><div class="icon-label">PETS</div></div>
+        <div class="icon-item"><img src="https://static.id.gtech.asia/prod/100003/20231205/68CB6593ABEE1BF00D9C95FE027CB85A.png?x-oss-process=image/resize,w_600/format,webp" alt="SPORTS"><div class="icon-label">SPORTS</div></div>
+        <div class="icon-item"><img src="https://static.id.gtech.asia/prod/100003/20231205/360DB09F5216A544BE4DE2AAE6E67B0E.png?x-oss-process=image/resize,w_600/format,webp" alt="FASHION"><div class="icon-label">FASHION</div></div>
+        <div class="icon-item"><img src="https://static.id.gtech.asia/prod/100003/20231205/366ADB795435E11F12D900DFC947B667.png?x-oss-process=image/resize,w_600/format,webp" alt="GADGET"><div class="icon-label">GADGET</div></div>
+        <div class="icon-item"><img src="https://static.id.gtech.asia/prod/100003/20231205/345311A3C8F091B61A43B30F8E20D13D.png?x-oss-process=image/resize,w_600/format,webp" alt="FOOTWEAR"><div class="icon-label">FOOTWEAR</div></div>
+        <div class="icon-item"><img src="https://static.id.gtech.asia/prod/100003/20231205/457370E09F7D9B19D9234A100E750D38.png?x-oss-process=image/resize,w_600/format,webp" alt="KIDS"><div class="icon-label">KIDS & TOYS</div></div>
+        <div class="icon-item"><img src="https://static.id.gtech.asia/prod/100003/20231205/164202D017C14836085F4EB330AFDAD7.png?x-oss-process=image/resize,w_600/format,webp" alt="BEAUTY"><div class="icon-label">BEAUTY</div></div>
+        <div class="icon-item"><img src="https://static.id.gtech.asia/prod/100003/20251003/213430DF615A07C722B7AA81F5C26E30.png?x-oss-process=image/resize,w_600/format,webp" alt="HOME"><div class="icon-label">HOME & LIVING</div></div>
+        <div class="icon-item"><img src="https://static.id.gtech.asia/prod/100003/20231205/7E3E4FB8A9F8B648AA54BD271607916E.png?x-oss-process=image/resize,w_600/format,webp" alt="GROCERIES"><div class="icon-label">GROCERIES</div></div>
+        <div class="icon-item"><img src="https://static.id.gtech.asia/prod/100003/20231205/B6D4ABF1D673DE99452221AA32A521EB.png?x-oss-process=image/resize,w_600/format,webp" alt="STATIONERY"><div class="icon-label">STATIONERY</div></div>
+        <div class="icon-item"><img src="https://static.id.gtech.asia/prod/100003/20231205/15E39580C92E2F309498EA81347E78C3.png?x-oss-process=image/resize,w_600/format,webp" alt="FOOD"><div class="icon-label">FOOD & BEVERAGE</div></div>
+        <div class="icon-item"><img src="https://static.id.gtech.asia/prod/100003/20231205/73764DB7DA35869DF6B3BFBF0C83392F.png?x-oss-process=image/resize,w_600/format,webp" alt="TRAVEL"><div class="icon-label">TRAVEL</div></div>
+      </div>
+    </section>
+
+    <!-- Promo banners -->
+    <section class="promos container">
+      
+        <!-- Split Promo Banners -->
+        <div class="promo-split">
+          <div class="promo-left">
+            <img src="https://static.id.gtech.asia/prod/100003/20251101/FFA8AE0F3F20F0FF5C6CF6E54D9A9443.jpeg?x-oss-process=image/resize,w_1024/format,jpeg" alt="Promo Clarks" />
+          </div>
+
+          <div class="promo-right">
+            <img src="https://static.id.gtech.asia/prod/100003/20251101/4B956CBF58367046B049F7BD34C1DFC3.jpeg?x-oss-process=image/resize,w_1024/format,jpeg" alt="Brand Yay" />
+          </div>
+        </div>
+
+        <!-- Single Promo Banner -->
+        <div class="promo-row">
+          <img src=" https://static.id.gtech.asia/prod/100003/20251024/D1A86E4E845566D6C62299A0287E2E24.png?x-oss-process=image/resize,w_1024/format,png" alt="Promo 3" />
+        </div>
+    </section>
+
+   
+
+  <!-- Featured Deals -->
+  <section class="featured">
+    <div class="container">
+      <div class="section-head">
+        <h3>Featured Deals</h3>
+        <a class="see-all" href="#">Lihat Semua</a>
+      </div>
+      
+      <div class="tabs">
+        <button class="tab active">SEMUA</button>
+        <button class="tab">ONLINE</button>
+        <button class="tab">BANK/PARTNER</button>
+        <button class="tab">IN STORE</button>
+      </div>
+
+      <div class="deals-row">
+        <div class="deal-card">
+          <img src="https://static.id.gtech.asia/prod/100003/20251024/6FBD989AEAC822BBA9EB24D92E8C1502.jpeg?x-oss-process=image/resize,w_342/format,jpeg" alt="">
+          <p>[SEIBU] BRI Thursday</p>
+        </div>
+        <div class="deal-card">
+          <img src="https://static.id.gtech.asia/prod/100003/20251017/AD09842E1141433C02229B6D35CEF4FB.jpeg?x-oss-process=image/resize,w_342/format,jpeg" alt="">
+          <p>iPhone 17 Promo</p>
+        </div>
+        <div class="deal-card">
+          <img src="https://static.id.gtech.asia/prod/100003/20251024/9CADA4F25CCF76E737C426F4A854395D.png?x-oss-process=image/resize,w_342/format,png" alt="">
+          <p>MAPCLUB Member Get Member</p>
+        </div>
+        <div class="deal-card">
+          <img src="https://static.id.gtech.asia/prod/100003/20251024/F5042C49D2D3B5EC1F3710D7D506FB88.png?x-oss-process=image/resize,w_342/format,png" alt="">
+          <p>Disc. up to 20% +10% BNI</p>
+        </div>
+        <div class="deal-card">
+          <img src="https://static.id.gtech.asia/prod/100003/20251023/25BDFDD7DCAFC50C059A79A8F59F1D29.jpeg?x-oss-process=image/resize,w_342/format,jpeg" alt="">
+          <p>MAP Fashion - Pay Yay</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Shop by Brands -->
+  <section class="brands">
+    <div class="container">
+      <div class="brands-header">
+        <h2>Shop by Brands</h2>
+        <a class="brands-see-all" href="#">Lihat Semua</a>
+      </div>
+      
+      <div class="brands-grid">
+        <!-- Row 1 -->
+        <div class="brand-item">
+          <div class="brand-logo">
+            <img src="https://static.id.gtech.asia/prod/100003/20250416/05E5A6D16F2B10ADF8054A0ADC4C3CCC.jpeg?x-oss-process=image/resize,w_200/format,jpeg" alt="Apple">
+          </div>
+          <div class="brand-button">APPLE</div>
+        </div>
+
+        <div class="brand-item">
+          <div class="brand-logo">
+            <img src="https://static.id.gtech.asia/prod/100003/20241017/4F3C58685A5CF704332E8B99FCED0085.png?x-oss-process=image/resize,w_200/format,png" alt="Marks & Spencer">
+          </div>
+          <div class="brand-button">MARKS & SPENCER</div>
+        </div>
+
+        <div class="brand-item">
+          <div class="brand-logo">
+            <img src="https://static.id.gtech.asia/prod/100003/20210902/8645439DF3605D97CFD3F2C450186420.png?x-oss-process=image/resize,w_200/format,png" alt="SK II">
+          </div>
+          <div class="brand-button">SK II</div>
+        </div>
+
+        <div class="brand-item">
+          <div class="brand-logo">
+            <img src="https://static.id.gtech.asia/prod/100003/20210906/0FDF2CDA19D43C9180A506CA6091D2D7.png?x-oss-process=image/resize,w_200/format,png" alt="Nike">
+          </div>
+          <div class="brand-button">NIKE</div>
+        </div>
+
+        <!-- Row 2 -->
+        <div class="brand-item">
+          <div class="brand-logo">
+            <img src="https://static.id.gtech.asia/prod/100003/20220713/7A841C51E0910D09E13E80E7479436B6.png?x-oss-process=image/resize,w_200/format,png" alt="Lego">
+          </div>
+          <div class="brand-button">LEGO</div>
+        </div>
+
+        <div class="brand-item">
+          <div class="brand-logo">
+            <img src="https://static.id.gtech.asia/prod/100003/20220920/50C5F72A9BEF869DD721B8986E4F2FBD.png?x-oss-process=image/resize,w_200/format,png" alt="Lacoste">
+          </div>
+          <div class="brand-button">LACOSTE</div>
+        </div>
+
+        <div class="brand-item">
+          <div class="brand-logo">
+            <img src="https://static.id.gtech.asia/prod/100003/20220912/03A16B962864EA7DB4744E3C24A50804.jpeg?x-oss-process=image/resize,w_200/format,jpeg" alt="Birkenstock">
+          </div>
+          <div class="brand-button">BIRKENSTOCK</div>
+        </div>
+
+        <div class="brand-item">
+          <div class="brand-logo">
+            <img src="https://static.id.gtech.asia/prod/100003/20210906/97F7E22992FD86AEC8FFFCC2FBE25240.png?x-oss-process=image/resize,w_200/format,png" alt="Converse">
+          </div>
+          <div class="brand-button">CONVERSE</div>
+        </div>
+      </div>
+
+      <!-- Dropdown Section -->
+      <div class="dropdown-section">
+        <div class="dropdown-header">
+          <h3>MAPCLUB Situs Belanja Online Fashion Brand Internasional</h3>
+          <span class="dropdown-icon">⌄</span>
+        </div>
+      </div>
+    </div>
+  </section>
+</main>
+
+<!-- Footer -->
+<footer class="footer">
+  <div class="container">
+    <div class="footer-top">
+      <!-- Logo + Join Now Button -->
+      <div class="footer-col col-logo">
+        <img src="https://res.mapclub.com/resources/v2/images/common/mapclub-logo.svg" alt="MAPCLUB">
+      </div>
+
+      <!-- Metode Pembayaran -->
+      <div class="footer-col col-payments">
+        <h4>Metode Pembayaran</h4>
+        <div class="payments">
+          <img src="https://res.mapclub.com/resources/v2/images/payment/american-express.svg" alt="American Express">
+          <img src="https://res.mapclub.com/resources/v2/images/payment/visa.svg" alt="Visa">
+          <img src="https://res.mapclub.com/resources/v2/images/payment/mastercard.svg" alt="Mastercard">
+          <img src="https://res.mapclub.com/resources/v2/images/payment/bca.svg" alt="BCA">
+          <img src="https://res.mapclub.com/resources/v2/images/payment/bri.svg" alt="BRI">
+          <img src="https://res.mapclub.com/resources/v2/images/payment/mandiri.svg" alt="Mandiri">
+          <img src="https://res.mapclub.com/resources/v2/images/payment/atome.svg" alt="Atome">
+          <img src="https://res.mapclub.com/resources/v2/images/payment/jcb.svg" alt="JCB">
+          <img src="https://res.mapclub.com/resources/v2/images/payment/kredivo.svg" alt="Kredivo">
+          <img src="https://res.mapclub.com/resources/v2/images/payment/jenius.svg" alt="Jenius">
+          <img src="https://res.mapclub.com/resources/v2/images/payment/bni.svg" alt="BNI">
+          <img src="https://res.mapclub.com/resources/v2/images/payment/qris.svg" alt="QRIS">
+          <img src="https://res.mapclub.com/resources/v2/images/payment/yup.svg" alt="Yup">
+          <img src="https://res.mapclub.com/resources/v2/images/payment/panin.svg" alt="Panin">
+          <img src="https://res.mapclub.com/resources/v2/images/payment/maybank.svg" alt="Maybank">
+          <img src="https://res.mapclub.com/resources/v2/images/payment/permata.svg" alt="Permata">
+          <img src="https://res.mapclub.com/resources/v2/images/payment/Indodana.svg" alt="Indodana">
+          <img src="https://res.mapclub.com/resources/v2/images/payment/mega.svg" alt="Mega">
+        </div>
+      </div>
+
+      <!-- Informasi -->
+      <div class="footer-col col-info">
+        <h4>Informasi</h4>
+        <ul>
+          <li>Tentang kami</li>
+          <li>Panduan Ukuran</li>
+          <li>Lokasi Toko</li>
+          <li>Syarat dan Ketentuan</li>
+          <li>Kebijakan Privasi</li>
+        </ul>
+      </div>
+
+      <!-- Butuh Bantuan -->
+      <div class="footer-col col-help">
+        <h4>Butuh Bantuan? Hubungi Kami</h4>
+        <div class="help-item">
+          <img src="https://res.mapclub.com/resources/v2/images/svg/help.svg" alt="Help">
+          <span>Pusat Bantuan</span>
+        </div>
+        <div class="contact-info">
+          <h5 class="contact-title">Layanan Pengaduan Konsumen</h5>
+          <p><strong>PT. MAPCLUB Digital Asia</strong></p>
+          
+          <!-- Email dan Telp dalam satu baris dengan garis vertikal -->
+          <div class="contact-row">
+            <span><strong>Email: hello@mapclub.com</strong></span>
+            <div class="contact-divider"></div>
+            <span><strong>Telp: 021 - 309 67 627</strong></span>
+          </div>
+          
+          <p><strong>Direktorat Jenderal Perlindungan Konsumen dan Tertib Niaga Kementerian Perdagangan Republik Indonesia</strong></p>
+          <p><strong>0853 1111 1010 (Whatsapp)</strong></p>
+        </div>
+      </div>
+
+      <!-- Sistem Keamanan - di bawah Metode Pembayaran -->
+      <div class="system-security">
+        <h4>Sistem Keamanan</h4>
+        <div class="security-item">
+          <img src="https://res.mapclub.com/resources/v2/images/svg/3d-secure-authentication.svg" alt="3D Secure">
+          <span>3D Secure Authentication</span>
+        </div>
+      </div>
+    </div>
+  </div>
+</footer>
+
+<!-- Footer Bottom Section - Social Media & Apps -->
+<div class="footer-bottom">
+  <div class="container">
+    <div class="footer-bottom-content">
+      <!-- Social Media Links -->
+      <div class="social-links">
+        <a href="#" class="social-link">
+          <svg width="16" height="16" viewBox="0 0 24 24" fill="none">
+            <path d="M18 2h-3a5 5 0 0 0-5 5v3H7v4h3v8h4v-8h3l1-4h-4V7a1 1 0 0 1 1-1h3z" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+          </svg>
+          Facebook
+        </a>
+        <a href="#" class="social-link">
+          <svg width="16" height="16" viewBox="0 0 24 24" fill="none">
+            <rect x="2" y="2" width="20" height="20" rx="5" ry="5" stroke="currentColor" stroke-width="2"/>
+            <circle cx="12" cy="12" r="4" stroke="currentColor" stroke-width="2"/>
+            <circle cx="17.5" cy="6.5" r="1.5" fill="currentColor"/>
+          </svg>
+          Instagram
+        </a>
+        <a href="#" class="social-link">
+          <svg width="16" height="16" viewBox="0 0 24 24" fill="none">
+            <path d="M23 3a10.9 10.9 0 0 1-3.14 1.53 4.48 4.48 0 0 0-7.86 3v1A10.66 10.66 0 0 1 3 4s-4 9 5 13a11.64 11.64 0 0 1-7 2c9 5 20 0 20-11.5a4.5 4.5 0 0 0-.08-.83A7.72 7.72 0 0 0 23 3z" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+          </svg>
+          Twitter
+        </a>
+        <a href="#" class="social-link">
+          <svg width="16" height="16" viewBox="0 0 24 24" fill="none">
+            <path d="M22.54 6.42a2.78 2.78 0 0 0-1.94-2C18.88 4 12 4 12 4s-6.88 0-8.6.46a2.78 2.78 0 0 0-1.94 2A29 29 0 0 0 1 11.75a29 29 0 0 0 .46 5.33A2.78 2.78 0 0 0 3.4 19c1.72.46 8.6.46 8.6.46s6.88 0 8.6-.46a2.78 2.78 0 0 0 1.94-2 29 29 0 0 0 .46-5.25 29 29 0 0 0-.46-5.33z" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+            <path d="M9.75 15.02l5.75-3.27-5.75-3.27v6.54z" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+          </svg>
+          Youtube
+        </a>
+        <a href="#" class="social-link">
+          <svg width="16" height="16" viewBox="0 0 24 24" fill="none">
+            <path d="M9 12a3 3 0 1 0 6 0a3 3 0 1 0-6 0" stroke="currentColor" stroke-width="2"/>
+            <path d="M12 3c-4.5 0-8 1-8 1v11c0 4.5 4 8 8 8s8-3.5 8-8V4s-3.5-1-8-1z" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+          </svg>
+          Tiktok
+        </a>
+      </div>
+
+      <!-- App Download -->
+      <div class="app-download">
+        <span class="download-label">Download MAPCLUB App</span>
+        <div class="app-buttons">
+          <a href="#" class="app-btn">
+            <img src="https://res.mapclub.com/resources/v2/images/common/appstore.svg" alt="App Store" width="123" height="36">
+          </a>
+          <a href="#" class="app-btn">
+            <img src="https://res.mapclub.com/resources/v2/images/common/playstore.svg" alt="Google Play" width="123" height="36">
+          </a>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- Copyright -->
+<div class="footer-copyright">
+  Copyright © 2025 PT MAPCLUB Digital Asia. All rights reserved.
+</div>
+
+</body>
+</html>
